@@ -19,8 +19,12 @@
   {% endblock meta %}
 </head>
 
+<style>
+  {% block styles %}
+  {% endblock styles %}
+</style>
+
 <body>
-  {% include 'navbar-manajer.html' %}
   {% block content %}
   {% endblock content %}
 </body>

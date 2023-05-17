@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar-panitia.html' %}
+  <div class="row">
+    <div class="column left" style="background-color:#D6D6D6;"> 
+      <h1 class="text-center mt-3">Halo, Panitia!</h1>
+      <div class="profile-pic" style="padding-top: 65px;">
+        <img src="{% static 'images/id-card.png' %}" alt="Logo ID Card">
+      </div>
+      <h2 class="text-center mt-3">Rosetta Beeho</h2>
+      <p class="text-center bio"></p>
+      <ul class="list-unstyled text-center profile">
+        <li><img src="{% static 'images/role.png' %}" alt="Logo Role" style="padding: 10px;">Ketua Pelaksana</li>
+        <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">08898555183</li>
+        <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">Rosetta.Beeho@gmail.com</li>
+        <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">50962 Commercial Point</li>
+      </ul>
+    </div>
+
+    <div class="column right" style="background-color: #f0f0f0; padding-right: 40px;">
+      <h1 class="text-center mt-3">Daftar Rapat</h1>
+      <table>
+          <tr>
+              <th>Tim Bertanding</th>
+              <th>Stadium</th>
+              <th>Tanggan dan Waktu</th>
+          </tr>
+          
+          <tr>
+              <td>Eclipse United vs Phoenix Blaze FC</td>
+              <td>Stadion Utama Riau</td>
+              <td>20 Oktober 2023, 07.00-09.00</td>
+          </tr>
+          
+          <tr>
+              <td>Velocity FC vs Thunderstrike SC</td>
+              <td>Stadion Mandala Krida</td>
+              <td>21 Oktober 2023, 07.00-09.00</td>
+          </tr>
+          <tr>
+              <td>Vanguard United vs Redhawk FC</td>
+              <td>Stadion Jatidiri</td>
+              <td>10 November 2023, 07.00-09.00</td>
+          </tr>
+          <tr>
+              <td>Eclipse City United vs Blackout FC</td>
+              <td>Stadion Lukas Enembe</td>
+              <td>19 November 2023, 13.00-15.00</td>
+          </tr>
+          <tr>
+              <td>Fusion City SC vs Stormfront FC</td>
+              <td>Stadion Gelora Bung Tomo</td>
+              <td>23 Desember 2023, 13.00-15.00</td>
+          </tr>
+      </table>
+    </div>
+  </div>
+{% endblock content %}

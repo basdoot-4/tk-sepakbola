@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock meta %}
+
+{% block content %}
+  {% include 'navbar-penonton.html' %}
+  <div class="row">
+    <div class="column left" style="background-color:#D6D6D6;"> 
+      <h1 class="text-center mt-3">Halo, Penonton!</h1>
+      <div class="profile-pic" style="padding-top: 65px;">
+        <img src="{% static 'images/id-card.png' %}" alt="Logo ID Card">
+      </div>
+      <h2 class="text-center mt-3">Glori Higgan</h2>
+      <p class="text-center bio"></p>
+      <ul class="list-unstyled text-center profile">
+        <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">08838555390</li>
+        <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">Glori.Higgan@gmail.com</li>
+        <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">08 Swallow Way</li>
+      </ul>
+    </div>
+
+    <div class="column right" style="background-color: #f0f0f0; padding-right: 40px;" >
+      <h1 class="text-center mt-3">Daftar Pertandingan</h1>
+      <table>
+          <tr>
+              <th>Jenis Tiket</th>
+              <th>Tim Bertanding</th>
+              <th>Stadium</th>
+              <th>Tanggal dan Waktu</th>
+          </tr>
+          <tr>
+              <td>VIP</td>
+              <td>Fusion City SC vs Stormfront FC</td>
+              <td>Stadion Gelora Bung Tomo</td>
+              <td>24 Desember 2023, 13.00-15.00</td>
+          </tr>
+
+      </table>
+    </div>
+  </div>
+{% endblock content %}
