@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Hello, world!</title>
+{% endblock meta %}
+
+{% block content %}
+  <nav class="navbar bg-dark navbar-dark">
+    <a class="navbar-brand" type="button" href="/" style="background-color: #F9D949; color:black;"><img src="{% static 'images/soccer.png' %}" alt="Logo IUFC" style="padding-right: 10px;">U-LEAGUE IUFC</a>
+  </nav>
+
+  <div class="container">
+    <h2>Form Registrasi Manajer</h2>
+
+    <!-- FORM -->
+    <form>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <textarea class="form-control" id="address" placeholder="Enter address" rows="3" required></textarea>
+      </div>
+      <div>
+        <p>Status:</p>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="check1" name="option1" value="Mahasiswa">
+          <label class="form-check-label" for="check1">Mahasiswa</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="check2" name="option2" value="Dosen">
+          <label class="form-check-label" for="check2">Dosen</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Tendik">
+          <label class="form-check-label">Tendik</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="check4" name="option4" value="Alumni">
+          <label class="form-check-label">Alumni</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="check5" name="option5" value="Umum">
+          <label class="form-check-label">Umum</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Daftar</button>
+    </form>
+  </div>
+{% endblock content %}
