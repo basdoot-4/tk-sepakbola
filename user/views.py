@@ -36,6 +36,8 @@ def login_post(request):
         print(result)
         
         if result:
+            role=""
+            
             # role manajer
             query = f"""
             SELECT * FROM manajer
@@ -71,9 +73,9 @@ def login_post(request):
             request.session["role"] = role
             print(role, username, password)
             
-            return HttpResponse()
+            return redirect('/dashboard')
     
-    return HttpResponseBadRequest()
+    return redirect('/login')
 
 def dashboard(request):
     role = request.session["role"]
