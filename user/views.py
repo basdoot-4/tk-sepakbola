@@ -43,9 +43,11 @@ def login_post(request):
             WHERE username='{username}'
             """
             result = execute_query(query)
+            print(result)
 
             if result:
                 role = "manajer"
+                request.session["id_user"] = result[0]['id_manajer']
                 
             # role manajer
             query = f"""
@@ -53,9 +55,11 @@ def login_post(request):
             WHERE username='{username}'
             """
             result = execute_query(query)
+            print(result)
 
             if result:
                 role = "penonton"
+                request.session["id_user"] = result[0]['id_penonton']
                 
             # role manajer
             query = f"""
@@ -63,9 +67,11 @@ def login_post(request):
             WHERE username='{username}'
             """
             result = execute_query(query)
+            print(result)
 
             if result:
                 role = "panitia"
+                request.session["id_user"] = result[0]['id_panitia']
             
             request.session["username"] = username
             request.session["password"] = password
@@ -78,6 +84,11 @@ def login_post(request):
 
 @login_required
 def dashboard(request):
+    print(request.session["id_user"])
+    print(request.session["role"])
+    print(request.session["username"])
+    print(request.session["password"])
+    
     role = request.session["role"]
     if role == "manajer":
         return render(request, 'dashboard-manajer.html')
@@ -88,8 +99,6 @@ def dashboard(request):
 
 @login_required
 def logout(request):
-    del request.session["username"]
-    del request.session["password"]
-    del request.session["role"]
+    request.session.flush()
     
     return redirect('/')

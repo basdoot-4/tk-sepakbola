@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 def login_required(function):
     def wrapper(request, *args, **kwargs):
         
-        if not request.session.get('code_success'):
+        if 'username' not in request.session:
             return HttpResponseRedirect("/")
         
         username = request.session["username"]
