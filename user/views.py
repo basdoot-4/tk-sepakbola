@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from utils.DBUtils import execute_query
+from utils.decorator import login_required
 
 # Create your views here.
 def index(request):
@@ -19,11 +20,9 @@ def register_penonton(request):
     return render(request, 'register-penonton.html')
 
 def login(request):
-    print("tes")
     return render(request, 'login.html')
 
 def login_post(request):
-    print("cuy")
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -77,6 +76,7 @@ def login_post(request):
     
     return redirect('/login')
 
+@login_required
 def dashboard(request):
     role = request.session["role"]
     if role == "manajer":
@@ -85,3 +85,11 @@ def dashboard(request):
         return render(request, 'dashboard-panitia.html')
     else:
         return render(request, 'dashboard-penonton.html')
+
+@login_required
+def logout(request):
+    del request.session["username"]
+    del request.session["password"]
+    del request.session["role"]
+    
+    return redirect('/')

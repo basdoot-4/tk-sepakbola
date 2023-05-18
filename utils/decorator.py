@@ -1,27 +1,28 @@
-from django.db import connections
+from django.shortcuts import redirect
 from utils.DBUtils import execute_query
 from django.http import HttpResponseRedirect
 
-def login_required(func):
-    def wrapper(*args, **kwargs):
-        req = args[0]
-        email = req.session["email"]
-        password = req.session["password"]
+def login_required(function):
+    def wrapper(request, *args, **kwargs):
+        
+        if not request.session.get('code_success'):
+            return HttpResponseRedirect("/")
+        
+        username = request.session["username"]
+        password = request.session["password"]
 
-        if email is None:
+        if username is None:
             return HttpResponseRedirect("/")
 
-        with connections["sirest"].cursor() as cursor:
-            query = f"""
-            SELECT * FROM USER_ACC
-            WHERE email='{email}' AND password='{password}'
-            """
-            cursor.execute(query)
-            result = cursor.fetchall()
+        query = f"""
+        SELECT * FROM user_system
+        WHERE username='{username}' AND password='{password}'
+        """
+        result = execute_query(query)
 
-            if not result:
-                return HttpResponseRedirect("/")
+        if not result:
+            return HttpResponseRedirect("/")
 
-        return func(*args, **kwargs)
+        return function(request, *args, **kwargs)
 
     return wrapper
