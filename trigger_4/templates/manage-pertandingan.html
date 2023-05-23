@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Manage</title>
+{% endblock meta %}
+
+{% block styles %}
+<style>
+  .badge-peristiwa{
+    background-color: rgba(237, 229, 221, 0.992);
+    color: #000;
+  }
+</style>
+{% endblock styles %}
+
+{% block content %}
+{% include 'navbar-panitia.html' %}
+<div class="container pagination-container">
+  <h2 style="margin-top: 32px; margin-bottom: 32px;">
+    List Pertandingan 🏆
+  </h2>
+
+  <div class="text-center">
+    <div class="pagination pagination-sm justify-content-end">
+      <ul class="pagination">
+        <li data-page="-" class="page-item"><a href="#" class="page-link">&lt;</a></li>
+        <li data-page="1" class="page-item"><a href="#" class="page-link">1</a></li>
+        <li data-page="2" class="page-item"><a href="#" class="page-link">2</a></li>
+        <li data-page="3" class="page-item"><a href="#" class="page-link">3</a></li>
+        <li data-page="+" class="page-item"><a href="#" class="page-link">&gt;</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-page="1" class="container table-container">
+    <h5 style="color: rgb(124, 120, 120);">Group Stage 1</h5>
+    {% include 'tabel-pertandingan-1.html' with pertandingan=tabel_1 %}
+
+    <!-- IF NOT EMPTY -->
+    <div style="text-align: center;">
+      <a class="btn btn-dark" href="#" role="button">
+        FINISH
+      </a>
+    </div>
+  </div>
+
+  <div data-page="2" class="container table-container" style="display: none;">
+    <h5 style="color: rgb(124, 120, 120);">Group Stage 2</h5>
+    <table class="table table-sm table-hover table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Grup</th>
+          <th scope="col">Tim</th>
+          <th scope="col">Waktu</th>
+          <th scope="col">Pemenang</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr> 
+          <th scope="row">1</th>
+          <td>A</td>
+          <td>A vs I</td>
+          <td>1 May 2023, 13:00</td>
+          <td>I</td>
+          <td class="edit-toggle">
+            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 1</a> <br>
+            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 2</a>
+            <!-- <a class="btn btn-sm btn-info " href="#">Update</a> -->
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>A</td>
+          <td>D vs E</td>
+          <td><span class="badge badge-pill badge-warning">
+            waktu dimulai -5 menit
+          </span></td>
+          <td>-</td>
+          <td class="edit-toggle">
+            <!-- <a class="badge badge-peristiwa" href="#" role="button">Lihat Peristiwa Tim 1</a> <br>
+            <a class="badge badge-peristiwa" href="#" >Lihat Peristiwa Tim 2</a> -->
+            <a class="btn btn-sm btn-success" href="#">Mulai</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>B</td>
+          <td>? vs ?</td>
+          <td>-</td>
+          <td>-</td>
+          <td class="edit-toggle">
+            <a class="badge badge-pill badge-danger" href="#" role="button">Belum Waktunya</a>
+            <!-- <a class="btn btn-sm btn-info" href="#">Update</a> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- IF NOT EMPTY -->
+    <div style="text-align: center;">
+      <a class="btn btn-dark" href="#" role="button">
+        FINISH
+      </a>
+    </div>
+  </div>
+
+  <div data-page="3" class="container table-container" style="display: none;">
+    <h5 style="color: rgb(124, 120, 120);">Non Stage</h5>
+    <table class="table table-sm table-hover table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tim</th>
+          <th scope="col">Waktu</th>
+          <th scope="col">Pemenang</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr> 
+          <th scope="row">1</th>
+          <td>A vs I</td>
+          <td>28 April 2023, 13:00</td>
+          <td>A</td>
+          <td>
+            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 1</a> <br>
+            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 2</a>
+          </td>
+        </tr>
+
+        <tr> 
+          <th scope="row">2</th>
+          <td>? vs ?</td>
+          <td>-</td>
+          <td>-</td>
+          <td>
+            <a class="badge badge-pill badge-danger" href="#">Belum Waktunya</a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+    <!-- IF NOT EMPTY -->
+    <div style="text-align: center;">
+      <a class="btn btn-dark" href="#" role="button">
+        FINISH
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+          crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" 
+          integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+          crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" 
+          integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+          crossorigin="anonymous">
+  </script>
+
+  <script>
+    var paginationHandler = function(){
+      var $paginationContainer = $(".pagination-container"),
+          $pagination = $paginationContainer.find('.pagination ul');
+          
+      $pagination.find("li a").on('click.pageChange',function(e){
+        e.preventDefault();
+  
+        var parentLiPage = $(this).parent('li').data("page"),
+            currentPage = parseInt( $(".pagination-container div[data-page]:visible").data('page') ),
+            numPages = $paginationContainer.find("div[data-page]").length;
+        
+        if ( parseInt(parentLiPage) !== parseInt(currentPage) ) {
+          $paginationContainer.find("div[data-page]:visible").hide();
+  
+          if ( parentLiPage === '+' ) {
+            $paginationContainer.find("div[data-page="+( currentPage+1>numPages ? numPages : currentPage+1 )+"]").show();
+          } else if ( parentLiPage === '-' ) {
+            $paginationContainer.find("div[data-page="+( currentPage-1<1 ? 1 : currentPage-1 )+"]").show();
+          } else {
+            $paginationContainer.find("div[data-page="+parseInt(parentLiPage)+"]").show();
+          }
+        }
+      });
+    };
+  
+    $( document ).ready( paginationHandler );
+  </script>
+
+{% endblock content %}
