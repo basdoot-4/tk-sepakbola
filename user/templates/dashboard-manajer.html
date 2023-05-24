@@ -17,19 +17,21 @@
     <div class="profile-pic" style="padding-top: 65px;">
       <img src="{% static 'images/id-card.png' %}" alt="Logo ID Card">
     </div>
-    <h2 class="text-center mt-3">Kippar	Vaux</h2>
+    <h2 class="text-center mt-3">{{ user.0.nama_depan }} {{ user.0.nama_belakang }}</h2>
     <p class="text-center bio"></p>
     <ul class="list-unstyled text-center profile">
-      <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">08897555955</li>
-      <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">Kippar.Vaux@gmail.com</li>
-      <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">88323 Rigney Drive</li>
+      <li><img src="{% static 'images/status_nonpemain.png' %}" alt="Logo Status Non Pemain" style="padding: 10px;">{{ user.0.status }}</li>
+      <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">0{{ user.0.nomor_hp }}</li>
+      <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">{{ user.0.email }}</li>
+      <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">{{ user.0.alamat }}</li>
     </ul>
   </div>
 
   <div class="column right" style="background-color: #f0f0f0;">
     <h1 class="text-center mt-3">Informasi Tim</h1>
-    <h3 class="text-center mt-3">Fusion City SC</h3>
-    <h5 class="text-center mt-3">Universitas Sriwijaya</h5>
+    {% if tim %}
+    <h3 class="text-center mt-3">{{ tim.0.nama_tim }}</h3>
+    <h5 class="text-center mt-3">{{ tim.0.universitas }}</h5>
     <ul class="list-unstyled text-center profile">
       <li><img src="{% static 'images/player.png' %}" alt="Logo Player" style="padding: 10px;">Daftar Pemain</li>
       <div class="container-fluid" style="padding-right: 35px;">
@@ -42,125 +44,20 @@
           <th>Tanggal Lahir</th>
           <th>Posisi</th>
           <th>NPM</th>
+          <th>Jenjang</th>
         </tr>
+        {% for i in pemain %}
         <tr>
-          <td></td>
-          <td>Greggory</td>
-          <td>Moryson</td>
-          <td>08899555360</td>
-          <td>2001-11-25</td>
-          <td>bek kiri</td>
-          <td>19066356</td>
-          
+          <td>{% if i.is_captain %} ✔ {% endif %}</td>
+          <td>{{ i.nama_depan }}</td>
+          <td>{{ i.nama_belakang }}</td>
+          <td>{{ i.nomor_hp }}</td>
+          <td>{{ i.tgl_lahir }}</td>
+          <td>{{ i.posisi }}</td>
+          <td>{{ i.npm }}</td>
+          <td>{{ i.jenjang }}</td>
         </tr>
-        <tr>
-          <td></td>
-          <td>Fabian</td>
-          <td>Twinn</td>
-          <td>08838555515</td>
-          <td>2004-06-01</td>
-          <td>bek kanan</td>
-          <td>22066363</td>
-      </tr>
-      <tr>
-          <td>✔</td>
-          <td>Wally</td>
-          <td>Charlot</td>
-          <td>08859555568</td>
-          <td>2004-07-01</td>
-          <td>bek tengah</td>
-          <td>22066501</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Phip</td>
-          <td>Abbots</td>
-          <td>08897555915</td>
-          <td>2002-11-24</td>
-          <td>bek penyapu</td>
-          <td>20066324</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Timotheus</td>
-          <td>Otley</td>
-          <td>08878555191</td>
-          <td>2004-06-14</td>
-          <td>gelandang bertahan</td>
-          <td>22066341</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Elmo</td>
-          <td>Goggen</td>
-          <td>08855555492</td>
-          <td>2004-08-18</td>
-          <td>gelandang serang</td>
-          <td>22067078</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Barrie</td>
-          <td>Garraway</td>
-          <td>08838555035</td>
-          <td>2004-11-19</td>
-          <td>gelandang tengah</td>
-          <td>22066310</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Christoforo</td>
-          <td>Edy</td>
-          <td>08816555976</td>
-          <td>2002-06-13</td>
-          <td>penyerang tengah</td>
-          <td>20066331</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Sky</td>
-          <td>Hammerton</td>
-          <td>08838555608</td>
-          <td>2004-03-27</td>
-          <td>penyerang sayap</td>
-          <td>22067082</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Feodor</td>
-          <td>Wartnaby</td>
-          <td>08896555514</td>
-          <td>2005-01-01</td>
-          <td>penyerang bayangan</td>
-          <td>22066388</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Christiano</td>
-          <td>Esposi</td>
-          <td>08897555167</td>
-          <td>2001-06-25</td>
-          <td>kiper</td>
-          <td>19066325</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Jens</td>
-          <td>Resun</td>
-          <td>08838555578</td>
-          <td>2004-08-08</td>
-          <td>bek penyapu</td>
-          <td>22067008</td>
-      </tr>
-      <tr>
-          <td></td>
-          <td>Warren</td>
-          <td>Bache</td>
-          <td>08814555765</td>
-          <td>2001-08-02</td>
-          <td>gelandang bertahan</td>
-          <td>19067037</td>
-      </tr>
+        {% endfor %}
       </table>
       </div>
       <li><img src="{% static 'images/coach.png' %}" alt="Logo Pelatih" style="padding: 10px;">Daftar Pelatih</li>
@@ -174,25 +71,22 @@
             <th>Alamat</th>
             <th>Spesialisasi</th>
           </tr>
+          {% for i in pelatih %}
           <tr>
-            <td>Albert</td>
-            <td>Mordy</td>
-            <td>08899555750</td>
-            <td>Albert.Mordy@gmail.com</td>
-            <td>26257 Hayes Drive</td>
-            <td>teknik</td>
-        </tr>
-        <tr>
-            <td>Sanford</td>
-            <td>Godbald</td>
-            <td>08897555884</td>
-            <td>Sanford.Godbald@gmail.com</td>
-            <td>7 Fair Oaks Plaza</td>
-            <td>taktik</td>
-        </tr>
+              <td>{{ i.nama_depan }}</td>
+              <td>{{ i.nama_belakang }}</td>
+              <td>{{ i.nomor_hp }}</td>
+              <td>{{ i.email }}</td>
+              <td>{{ i.alamat }}</td>
+              <td>{{ i.spesialisasi }}</td>
+          </tr>
+          {% endfor %}
         </table>
       </div>
     </ul>
+    {% else %}
+    <p class="text-center mt-3">Belum Membuat Tim</p>
+    {% endif %}
   </div>
 </div>
 {% endblock content %}

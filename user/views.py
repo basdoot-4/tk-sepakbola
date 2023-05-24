@@ -49,7 +49,7 @@ def login_post(request):
                 role = "manajer"
                 request.session["id_user"] = result[0]['id_manajer']
                 
-            # role manajer
+            # role penonton
             query = f"""
             SELECT * FROM penonton
             WHERE username='{username}'
@@ -61,7 +61,7 @@ def login_post(request):
                 role = "penonton"
                 request.session["id_user"] = result[0]['id_penonton']
                 
-            # role manajer
+            # role panitia
             query = f"""
             SELECT * FROM panitia
             WHERE username='{username}'
@@ -88,10 +88,65 @@ def dashboard(request):
     print(request.session["role"])
     print(request.session["username"])
     print(request.session["password"])
-    
+
+    id_user = request.session["id_user"]
     role = request.session["role"]
+    
     if role == "manajer":
-        return render(request, 'dashboard-manajer.html')
+        #Informasi User
+        query = f"""
+        SELECT *
+        FROM NON_PEMAIN NP 
+        JOIN STATUS_NON_PEMAIN SNP ON SNP.id_non_pemain=NP.id
+        WHERE id='{id_user}'
+        """
+        result = execute_query(query)
+        print(result)
+
+        context = {
+            "user":result,
+            "tim":[],
+            "pemain":[],
+            "pelatih":[]
+        }
+
+        #Informasi Tim
+        query = f"""
+        SELECT *
+        FROM TIM_MANAJER TM
+        JOIN TIM T ON T.nama_tim=TM.nama_tim
+        WHERE id_manajer='{id_user}'
+        """
+        result = execute_query(query)
+        print(result)
+
+        if result:
+            context["tim"]+=result
+            print(context['tim'][0]['nama_tim'])
+
+            #Informasi Pemain
+            query = f"""
+            SELECT *
+            FROM PEMAIN 
+            WHERE nama_tim='{context['tim'][0]['nama_tim']}'
+            """
+            result = execute_query(query)
+            print(result)
+            context["pemain"]+=result
+
+            #Informasi Pelatih
+            query = f"""
+            SELECT *
+            FROM PELATIH P
+            JOIN NON_PEMAIN NP ON P.id_pelatih=NP.id
+            JOIN SPESIALISASI_PELATIH SP ON P.id_pelatih=SP.id_pelatih
+            WHERE nama_tim='{context['tim'][0]['nama_tim']}'
+            """
+            result = execute_query(query)
+            print(result)
+            context["pelatih"]+=result
+        return render(request, 'dashboard-manajer.html', context=context)
+    
     elif role == "panitia":
         return render(request, 'dashboard-panitia.html')
     else:
