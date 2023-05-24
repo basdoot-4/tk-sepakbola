@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Pemain</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar-manajer.html' %}
+<div class="container mt-5">
+    <h2 style="text-align: center; margin-bottom: 50px;">Daftar Pemain</h2>
+    <form>
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-4">
+                <label for="playerDropdown" class="form-label">Pemain yang mau didaftarkan:</label>
+                </div>
+                <div class="col-8">
+                
+                <select class="form-select" id="playerDropdown" name="playerDropdown">
+                    <option selected disabled>-- Pilih Pemain --</option>
+                    <option value="player1">Player 1 (Posisi 1)</option>
+                    <option value="player2">Player 2 (Posisi 2)</option>
+                    <option value="player3">Player 3 (Posisi 3)</option>
+                </select>
+                </div>
+            </div>
+            
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin: auto; display: block;">Submit</button>
+    </form>
+</div>
+
+{% endblock content %}
