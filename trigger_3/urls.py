@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from example_app.views import *
-
-"app_name = 'example_app'"
+from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    """path('', index, name='index'),"""
+    path('', index, name='index'),
+    path('list_all_Pertandingan', list_all_Pertandingan, name='list_all_Pertandingan'),
+    path('pembuatanPertandingan', pembuatanPertandingan, name='pembuatanPertandingan'),
+    path('deletePertandingan', deletePertandingan, name='deletePertandingan'),
+    path('updatePertandingan', updatePertandingan, name='updatePertandingan'),
 ]
