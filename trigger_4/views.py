@@ -13,7 +13,7 @@ def manage(request):
 
 def get_stage_1(request):
     query="""select p.id_pertandingan, 
-            string_agg(tp.nama_tim, ' vs ' order by tp.nama_tim) as tim,
+            string_agg(tp.nama_tim, ' vs ' order by tp.skor) as tim,
             p.start_datetime
             from pertandingan p,
                 tim_pertandingan tp
@@ -22,6 +22,8 @@ def get_stage_1(request):
             order by p.start_datetime asc
     """
     result = execute_query(query)
+    
+    pemenang_query = """select distinct"""
     
     context = {"tabel_1" : []}
     for i in range(len(result)):
