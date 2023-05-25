@@ -15,6 +15,39 @@ def register(request):
     return render(request, 'register.html')
 
 def register_manajer(request):
+    if request.method == "GET":
+        return render(request, "register-manajer.html")
+
+    id_manajer = generate_id()
+    username = generate_username(request.POST['firstName'],request.POST['lastName'])  # Generate the username as per your requirements
+    password = generate_password()  # Generate the password as per your requirements
+
+    print(f"Username: {username}")
+    print(f"Password: {password}")
+
+    try:
+        # Insert into USER_SYSTEM table
+        insert_user = f"INSERT INTO USER_SYSTEM (username, password) " \
+                      f"VALUES ('{username}', '{password}')"
+        execute_query2(insert_user)
+
+        # Insert into NON_PEMAIN table
+        insert_non_pemain = f"INSERT INTO NON_PEMAIN (id, nama_depan, nama_belakang, nomor_hp, email, alamat) " \
+                            f"VALUES ('{id_manajer}', '{request.POST['firstName']}', '{request.POST['lastName']}', " \
+                            f"'{request.POST['phoneNumber']}', '{request.POST['email']}', '{request.POST['address']}')"
+        execute_query2(insert_non_pemain)
+
+        # Insert into PANITIA table
+        insert_manajer = f"INSERT INTO MANAJER (id_panitia, username) " \
+                         f"VALUES ('{id_manajer}', '{username}')"
+        execute_query2(insert_manajer)
+
+    except Exception as e:
+        error_msg = generate_error_message(e)
+        messages.error(request, generate_error_message(e))
+        
+        return render(request, "register-manajer.html")
+    
     return render(request, 'register-manajer.html')
 
 # Function untuk register panitia
@@ -55,7 +88,40 @@ def register_panitia(request):
 
     return render(request, "login.html")
 
+
 def register_penonton(request):
+    if request.method == "GET":
+        return render(request, "register-penonton.html")
+
+    id_penonton = generate_id()
+    username = generate_username(request.POST['firstName'],request.POST['lastName'])  # Generate the username as per your requirements
+    password = generate_password()  # Generate the password as per your requirements
+
+    print(f"Username: {username}")
+    print(f"Password: {password}")
+
+    try:
+        # Insert into USER_SYSTEM table
+        insert_user = f"INSERT INTO USER_SYSTEM (username, password) " \
+                      f"VALUES ('{username}', '{password}')"
+        execute_query2(insert_user)
+
+        # Insert into NON_PEMAIN table
+        insert_non_pemain = f"INSERT INTO NON_PEMAIN (id, nama_depan, nama_belakang, nomor_hp, email, alamat) " \
+                            f"VALUES ('{id_penonton}', '{request.POST['firstName']}', '{request.POST['lastName']}', " \
+                            f"'{request.POST['phoneNumber']}', '{request.POST['email']}', '{request.POST['address']}')"
+        execute_query2(insert_non_pemain)
+
+        # Insert into PANITIA table
+        insert_penonton = f"INSERT INTO PENONTON (id_penonton, username) " \
+                         f"VALUES ('{id_penonton}', '{username}')"
+        execute_query2(insert_penonton)
+
+    except Exception as e:
+        error_msg = generate_error_message(e)
+        messages.error(request, generate_error_message(e))
+        
+        return render(request, "register-penonton.html")
     return render(request, 'register-penonton.html')
 
 def login(request):
