@@ -1,0 +1,198 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <!-- {% block meta %} -->
+  <title>Buat Pertandingan</title>
+  
+  <!-- {% endblock meta %} -->
+</head>
+
+<style>
+  .navbar-brand {
+      border-radius: 7px;
+      padding: 15px;
+
+  }
+  li {
+      padding: 10px;
+  }
+</style>
+
+<body>
+  <!-- {% block content %} -->
+
+  <!-- NAVBAR -->
+  <nav class="navbar bg-dark navbar-dark">
+    <a class="navbar-brand" style="background-color: #F9D949; color:black;"><img src="soccer.png" alt="Logo IUFC" style="padding-right: 10px;">U-LEAGUE IUFC</a>
+    <ul class="navbar-nav navbar-expand-md mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"> Manage Pertandingan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Rapat</a>
+        </li>
+    </ul>
+    <button class="btn btn-danger navbar-btn" style="float:right;">Log Out</button>
+  </nav>  
+  <!-- NAVBAR -->
+
+  <div class="container">
+    <h2 style="text-align: center; margin: 32px;">Pembuatan Pertandingan</h2>
+    <!-- Page 1 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <form>
+            <h4>Pilih Stadium</h4>
+            <div class="form-group">
+              <label for="stadium">Stadium:</label>
+              <select name="stadium" id="cars" class="form-control">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="tanggal">Tanggal:</label>
+              <div name="tanggal" class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
+                  <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <button type="button" class="btn btn-primary next-page">
+                Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="container" style="display: none;">
+        <div>
+        <button type="button" class="btn btn-sm btn-secondary prev-page" style="float: left;">
+          Previous
+        </button>
+      </div>
+
+      <h4 style="text-align: center;">List Waktu Stadium</h4>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <!-- <form>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input type="text" class="form-control" id="address">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input type="tel" class="form-control" id="phone">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form> -->
+
+          <table class="table table-light" style="text-align: center;">
+            <thead class="thead-light">
+              <th scope="col">List Waktu</th>
+              <th scope="col">Action</th>
+            </thead>
+    
+            <tbody>
+              <tr>
+                <td>11.00 - 13.00</td>
+                <td>
+                  <span class="badge badge-pill badge-danger"> dipesan </span>
+                </td>
+              </tr>
+    
+              <tr>
+                <td>07.00 - 09.00</td>
+                <td>
+                  <a class="btn btn-sm btn-success" href="#" role="button">
+                    next
+                  </a>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>15.00 - 17.00</td>
+                <td>
+                  <a class="btn btn-sm btn-success" href="#" role="button">
+                    next
+                  </a>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>19.00 - 21.00</td>
+                <td>
+                  <a class="btn btn-sm btn-success" href="#" role="button">
+                    next
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+          crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" 
+          integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+          crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" 
+          integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+          crossorigin="anonymous">
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
+
+  <script>
+    // jQuery code to handle page transitions
+    $(document).ready(function() {
+      $('.next-page').click(function() {
+        $(this).closest('div.container').hide().next('div.container').show();
+      });
+      $('.prev-page').click(function() {
+        $(this).closest('div.container').hide().prev('div.container').show();
+      });
+    });
+
+    // datetime picker
+    $(function () {
+      $('#datetimepicker4').datetimepicker({
+        format: 'L'
+      });
+  });
+  </script>
+  
+  <!-- {% endblock content %} -->
+</body>
+
+</html>

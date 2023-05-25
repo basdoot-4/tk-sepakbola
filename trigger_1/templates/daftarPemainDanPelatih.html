@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <h2 style="text-align: center; margin-bottom: 75px;">Tim {{ nama_tim }}</h2>
     <h2 style="text-align: center; margin-bottom: 50px;">Daftar Pemain</h2>
-    <form method="POST" action="{% url 'submit_pemain' %}">
+    <form method="POST" action="{% url 'trigger_1:submit_pemain' %}">
         <div class="mb-3">
             <div class="row">
                 <div class="col-4">
@@ -33,7 +33,7 @@
     </form>
 
     <h2 style="text-align: center; margin-bottom: 50px;">Daftar Pelatih</h2>
-    <form method="POST" action="{% url 'submit_pelatih' %}">
+    <form method="POST" action="{% url 'trigger_1:submit_pelatih' %}">
         <div class="mb-3">
             <div class="row">
                 <div class="col-4">
