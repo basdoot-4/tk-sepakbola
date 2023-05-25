@@ -8,16 +8,13 @@
 
 {% block content %}
 {% include 'navbar-manajer.html' %}
-<h2>Tim {{ nama_tim }}</h2>
+<h2 style="text-align: center; margin-bottom: 75px;">Tim {{ nama_tim }}</h2>
 
 <div class="row">
   <div class="col-1"></div>
   <div class="col-10">
     <table class="table">
       <thead>
-        <tr>
-          <th scope="col" colspan="9">Tim</th>
-        </tr>
         <tr>
           <th scope="col" colspan="9">Pemain</th>
         </tr>
@@ -88,17 +85,18 @@
           <td colspan="2">{{ pelatih.alamat }}</td>
           <td colspan="2">{{ pelatih.spesialisasi }}</td>
           <td>
-            <button>Remove</button>
+            <form action="{% url 'trigger_1:remove_coach' pelatih.id_pelatih %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">Remove</button>
+            </form>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
 
-    <button class="btn btn-dark" href="/daftar-pemain-pelatih">Tambah Pemain</button>
+    <a class="btn btn-dark" href="{% url 'trigger_1:daftar-pemain-pelatih' %}" style="margin: auto; display: block;">Tambah Pemain/Pelatih</a>
     <br />
-    <button class="btn btn-dark">Tambah Pelatih</button>
-    <br>
   </div>
   <div class="col-1"></div>
 </div>
