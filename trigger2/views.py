@@ -7,6 +7,7 @@ from utils.decorator import login_required
 from datetime import datetime
 
 # Create your views here.
+@login_required
 def list_peminjaman(request):
     print(request.session["id_user"])
     print(request.session["role"])
@@ -38,6 +39,7 @@ def list_peminjaman(request):
     
     return render(request, 'peminjaman-list.html', context=context)
 
+@login_required
 def pesan_stadium(request):
     #List semua stadium
     query = f"""
@@ -87,6 +89,7 @@ def pesan_stadium(request):
 
     return render(request, 'peminjaman-pesan-stadium.html', context=context)
 
+@login_required
 def mulai_rapat(request):
     if request.method == 'POST':
         id_pertandingan = request.POST.get('id_pertandingan')
@@ -123,7 +126,7 @@ def mulai_rapat(request):
 
     return render(request, 'mulai-rapat.html',context=context)
 
-
+@login_required
 def isi_rapat(request):
     id = request.COOKIES['id_pertandingan']
 
@@ -166,7 +169,7 @@ def isi_rapat(request):
         """
         result = commit_query(query)
 
-        return redirect('/rapat/mulai')
+        return redirect('/dashboard')
     
     return render(request, 'isi-rapat.html', context=context) 
 
