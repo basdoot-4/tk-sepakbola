@@ -15,7 +15,9 @@
 
     <h2 style="text-align: center;">Pilih Peristiwa Tim {{tim}}</h2>
 
-    <form method="POST" action="">
+    <form method="POST" action="/tambah/{{id_pertandingan}}/{{tim}}">
+      {% csrf_token %}
+
       <div class="container table-container col-10">
         <table class="table table-light" style="text-align: center;">
           <thead class="thead-light">
@@ -29,7 +31,9 @@
               <tr>
                 <td>{{data.nama_pemain}}</td>
                 <td>{{data.jenis}}</td>
-                <td>{{data.waktu}}</td>
+                <td>{{data.waktu}} &nbsp;
+                  <a href ="/delete/{{id_pertandingan}}/{{tim}}/{{data.waktu}}" type="button" class="badge btn btn-sm btn-danger">X</a>
+                </td>
               </tr>
             {% endfor %}
 
@@ -65,6 +69,7 @@
             </tr>
           </tbody>
         </table>
+
         <div style="text-align: center;">
           <button class="btn btn-block btn-primary"> 
             Simpan 

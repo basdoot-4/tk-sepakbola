@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from datetime import datetime
+from django.db import connection
+from django.shortcuts import render, redirect
 from utils.decorator import login_required
 from utils.DBUtils import execute_query
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @login_required
@@ -28,7 +31,8 @@ def get_stage_1(request):
             'tim' : result[i]['tim'],
             'tim_1': (result[i]['tim']).split(' vs ')[0],
             'tim_2': (result[i]['tim']).split(' vs ')[1],
-            'waktu': result[i]['start_datetime']
+            'waktu': result[i]['start_datetime'],
+            'pemenang': (result[i]['tim']).split(' vs ')[1]
         })
     return render(request, 'manage-pertandingan.html', context=context)
 
@@ -99,9 +103,14 @@ def current_peristiwa(request, id, name):
     
     # get data pemain
     data_pemain = []
-    query = f"""select id_pemain, concat(nama_depan, ' ', nama_belakang) as nama_pemain
-                from pemain
-                where nama_tim = '{name}'"""
+    query = f"""select p.id_pemain, concat(nama_depan, ' ', nama_belakang) as nama_pemain
+                from pemain p
+                where nama_tim = '{name}' 
+                and p.id_pemain not in (
+                    select distinct peristiwa.id_pemain from peristiwa
+                    where jenis like '%kartu merah%'
+                )
+            """
     data = execute_query(query)
     
     for i in range(len(data)):
@@ -118,12 +127,32 @@ def current_peristiwa(request, id, name):
     }
     return render(request, 'catat-peristiwa.html', context)
 
+@csrf_exempt
 def add_peristiwa(request, id, name):
     if request.method == "POST":
-        nama_pemain = request.POST.get("nama-pemain")
+        id_pemain = request.POST.get("nama-pemain")
         peristiwa = request.POST.get("peristiwa")
         waktu = request.POST.get("waktu")
         
-        # get id pemain
-        query = f"""INSERT INTO PERISTIWA()
+        query = f"""INSERT INTO PERISTIWA (id_pertandingan, datetime, jenis, id_pemain)
+                    VALUES ('{id}', '{waktu}', '{peristiwa}', '{id_pemain}')
         """
+        
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+        
+        return redirect(f'/catat/{id}/{name}')
+
+def delete_peristiwa(request, id, name, waktu):
+    parsed_datetime = (datetime.strptime(waktu, '%d %B %Y - %H:%M')
+                                .strftime('%y-%m-%d %H:%M:%S'))
+                                
+    query = f"""SET datestyle = ymd;
+    
+                DELETE FROM peristiwa
+                WHERE id_pertandingan='{id}' AND datetime='{parsed_datetime}';"""
+    
+    with connection.cursor() as cursor:
+            cursor.execute(query)
+        
+    return redirect(f'/catat/{id}/{name}')

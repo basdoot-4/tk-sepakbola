@@ -20,40 +20,18 @@
       <td>A</td>
       <td>{{ data.tim }}</td>
       <td>{{ data.waktu }}</td>
-      <td>A</td>
+      <td>{{ data.pemenang }}</td>
       <td>
         <a class="badge badge-peristiwa" href="/peristiwa/{{data.id_pertandingan}}/{{data.tim_1}}">
           Lihat Peristiwa Tim 1</a> <br>
         <a class="badge badge-peristiwa" href="/peristiwa/{{data.id_pertandingan}}/{{data.tim_2}}">
-          Lihat Peristiwa Tim 2</a>
-          <a role="button" class="btn btn-sm btn-success" href="/mulai/{{data.id_pertandingan}}">Mulai</a>
+          Lihat Peristiwa Tim 2</a> <br>
+        <a role="button" class="btn btn-sm btn-success" href="/mulai/{{data.id_pertandingan}}">Mulai</a>
       </td>
     </tr>
     <tr>
     {% endfor %}
 
-    <tr> 
-      <th scope="row">1</th>
-      <td>A</td>
-      <td>A vs B</td>
-      <td>28 April 2023, 13:00</td>
-      <td>A</td>
-      <td>
-        <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 1</a> <br>
-        <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 2</a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>A</td>
-      <td>C vs D</td>
-      <td>29 April 2023, 13:00</td>
-      <td>D</td>
-      <td>
-        <a class="badge badge-peristiwa" href="#" role="button">Lihat Peristiwa Tim 1</a> <br>
-        <a class="badge badge-peristiwa" href="#" >Lihat Peristiwa Tim 2</a>
-      </td>
-    </tr>
     <tr>
       <th scope="row">3</th>
       <td>A</td>

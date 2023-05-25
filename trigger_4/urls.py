@@ -9,4 +9,6 @@ urlpatterns = [
     path('mulai/<str:id>', start, name='start'),
     path('peristiwa/<str:id>/<str:name>', get_peristiwa, name='get_peristiwa'),
     path('catat/<str:id>/<str:name>', current_peristiwa, name='current_peristiwa'),
+    path('tambah/<str:id>/<str:name>', add_peristiwa, name='add_peristiwa'),
+    path('delete/<str:id>/<str:name>/<str:waktu>', delete_peristiwa, name='delete_peristiwa'),
 ]
