@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar-penonton.html' %}
+<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">List pertandingan</h3>
+
+<table class="table table-bordered" style="width: fit-content;margin-left:auto;margin-right:auto">
+  <tr style="background-color:lightgrey; text-align: center;">
+    <th>Tim bertanding</th>
+    <th>Stadium</th>
+    <th>Tanggal dan Waktu</th>
+  </tr>
+  
+  {% for i in pertandingan %}
+  <tr>
+    <td>{{ i.tim }}</td>
+    <td>{{ i.nama_stadium }}</td>
+    <td>{{ i.tanggal_dan_waktu }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}
