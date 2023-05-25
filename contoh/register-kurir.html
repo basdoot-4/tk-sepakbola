@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20 gap-4">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Register Kurir</div>
+
+    <!-- FORM -->
+    <form action="" method="post">
+      {% csrf_token %}
+      
+      <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+        <div class="tw-grid tw-grid-cols-3 tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-4">
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Email</p>
+              <input type="email" name="email" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Email" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Password</p>
+              <input type="password" name="password" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Password" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nama Depan</p>
+              <input type="text" name="fname" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nama" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nama Belakang</p>
+              <input type="text" name="lname" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nama" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nomor HP</p>
+              <input type="number" name="noHp" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nomor HP" />
+            </div>
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-4">
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">NIK</p>
+              <input type="text" name="nik" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="NIK" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nama Bank</p>
+              <input type="text" name="bankName" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nama Bank" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nomor Rekening</p>
+              <input type="number" name="noRek" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nomor Rekening" />
+            </div>
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-4">
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Plat Nomor Kendaraan</p>
+              <input type="text" name="plat" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Plat Nomor Kendaraan" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Nomor SIM</p>
+              <input type="text" name="sim" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nomor SIM" />
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Jenis Kendaraan</p>
+              <select name="jenis" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" required>
+                <option disabled selected >Jenis Kendaraan</option>
+                <option value="motor">Motor</option>
+                <option value="mobil">Mobil</option>
+              </select>
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-2">
+              <p class="tw-font-semibold">Merk Kendaraan</p>
+              <input type="text" name="merk" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Merk Kendaraan" />
+            </div>
+          </div>
+        </div>
+        <button class="tw-rounded-lg tw-px-4 tw-py-2 tw-bg-blue-400" type="submit">Daftar</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

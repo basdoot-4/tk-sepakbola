@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% if role == "admin" %}
+    {% include 'navbar-admin.html' %}
+  {% endif %}
+  {% if role == "customer" %}
+    {% include 'navbar-pelanggan.html' %}
+  {% endif %}
+  {% if role == "restaurant" %}
+    {% include 'navbar-restoran.html' %}
+  {% endif %}
+  {% if role == "courier" %}
+    {% include 'navbar-kurir.html' %}
+  {% endif %}
+  <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-p-20">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Detail Restoran: {{ rname }} {{ rbranch }}</div>
+
+    <!-- DETAIL -->
+    <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+      <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nama Restoran</p>
+            <p>{{ rname }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Cabang</p>
+            <p>{{ rbranch }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nomor Telepon</p>
+            <p>{{ nohp }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jalan</p>
+            <p>{{ jalan }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kecamatan</p>
+            <p>{{ kecamatan }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kota</p>
+            <p>{{ kota }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Provinsi</p>
+            <p>{{ provinsi }}</p>
+          </div>
+        </div>
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Rating</p>
+            <p>{{ rating }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kategori</p>
+            <p>{{ kategori }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jam Operasional</p>
+            {% for i in hours %}
+            <p>{{ i.day }}, {{ i.start }}-{{ i.end }}</p>
+            {% endfor %}
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Promo berlangsung</p>
+            {% for i in promo %}
+            <p>{{ i.name }} {{ i.discount }}%</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <a class="tw-rounded-lg tw-bg-blue-400 tw-py-1 tw-flex tw-justify-center" href="/restoran/">Kembali</a>
+    </div>
+  </div>
+{% endblock content %}

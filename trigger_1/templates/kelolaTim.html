@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Kelola Tim</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar-manajer.html' %}
+<h2>Tim {{ nama_tim }}</h2>
+
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="9">Tim</th>
+        </tr>
+        <tr>
+          <th scope="col" colspan="9">Pemain</th>
+        </tr>
+        <tr>
+          <th>No.</th>
+          <th>Nama Pemain</th>
+          <th>No HP</th>
+          <th>Tanggal Lahir</th>
+          <th>Is Captain</th>
+          <th>Posisi</th>
+          <th>NPM</th>
+          <th>Jenjang</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pemain in list_pemain %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ pemain.nama_depan }} {{pemain.nama_belakang}}</td>
+          <td>{{ pemain.nomor_hp }}</td>
+          <td>{{ pemain.tgl_lahir }}</td>
+          <td>{{ pemain.is_captain }}</td>
+          <td>{{ pemain.posisi }}</td>
+          <td>{{ pemain.npm }}</td>
+          <td>{{ pemain.jenjang }}</td>
+          <td>
+            <a href="{% url 'make_captain' pemain.id_pemain %}" class="btn btn-success">Make Captain</a>
+            <br />
+            <br />
+            <a href="{% url 'delete_player' pemain.id_pemain %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <thead>
+        <tr>
+          <th scope="col" colspan="9">Pelatih</th>
+        </tr>
+        <tr>
+          <th>No</th>
+          <th>Nama Pelatih</th>
+          <th>No HP</th>
+          <th>Email</th>
+          <th colspan="2">Alamat</th>
+          <th colspan="2">Spesialisasi</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pelatih in list_pelatih %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ pelatih.nama_tim }}</td>
+          <td>{{ pelatih.nomor_hp }}</td>
+          <td>{{ pelatih.email }}</td>
+          <td colspan="2">{{ pelatih.alamat }}</td>
+          <td colspan="2">{{ pelatih.spesialisasi }}</td>
+          <td>
+            <a href="{% url 'delete_coach' pelatih.id_pelatih %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button class="btn btn-dark">Tambah Pemain</button>
+    <br />
+    <button class="btn btn-dark">Tambah Pelatih</button>
+    <br>
+  </div>
+  <div class="col-1"></div>
+</div>
+{% endblock content %}

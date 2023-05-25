@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+<script>
+  const verify = (email) => {
+    $.post("/verify/", {
+      "email": email,
+    },
+    () => {
+      window.location.href = "/dashboard/";
+    });
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% include 'navbar-admin.html' %}
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20 tw-pt-8 gap-4">
+    <div class="tw-flex tw-flex-col tw-items-center">
+      <div class="tw-font-bold tw-text-2xl">Dashboard Admin</div>
+      <div>{{ user.name }}</div>
+    </div>
+
+    <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4 tw-w-full">
+      <div class="tw-flex tw-flex-col tw-gap-4">
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Email</p>
+          <p>{{ user.email }}</p>
+        </div>
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Password</p>
+          <p>{{ user.password }}</p>
+        </div>
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Nama</p>
+          <p>{{ user.name }}</p>
+        </div>
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Nomor HP</p>
+          <p>{{ user.nohp }}</p>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="tw-border-t tw-border-x tw-border-black">
+        <div class="tw-table tw-w-full tw-border-separate">
+          <div class="tw-table-header-group">
+            <div class="tw-table-row tw-text-center tw-font-bold">
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Email</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Nama</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Role</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Status</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Aksi</div>
+            </div>
+          </div>
+          <div class="tw-table-row-group tw-text-center">
+            {% for i in tr_actor %}
+            <div class="tw-table-row">
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.email }}</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.name }}</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.role }}</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.status }}</div>
+              <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">
+                <div class="tw-flex tw-justify-center tw-gap-2">
+                  <button class="tw-py-1 tw-px-2 tw-bg-blue-400 tw-rounded-lg">Detail</button>
+                  {% if i.status == "Belum Terverifikasi" %}
+                    <button class="tw-py-1 tw-px-2 tw-bg-green-400 tw-rounded-lg" onClick="verify('{{ i.email }}')">Verifikasi</button>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

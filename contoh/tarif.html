@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+<script>
+  const deleteTarif = (id) => {
+    $.post(`/tarif/delete/${id}/`, {}, () => {
+      location.reload();
+    });
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% include 'navbar-admin.html' %}
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Daftar Tarif Pengiriman per KM</div>
+
+    <!-- TABLE -->
+    <div class="tw-border-t tw-border-x tw-border-black">
+      <div class="tw-table w-full tw-border-separate">
+        <div class="tw-table-header-group">
+          <div class="tw-table-row tw-text-center tw-font-bold">
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">No</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Deskripsi</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Biaya Motor</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Biaya Mobil</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Aksi</div>
+          </div>
+        </div>
+        <div class="tw-table-row-group tw-text-center">
+          {% for i in tarif %}
+          <div class="tw-table-row">
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.num }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.provinsi }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.motor }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.mobil }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">
+              <div class="tw-flex tw-justify-center tw-gap-2">
+                <a class="tw-py-1 tw-px-2 tw-bg-blue-400 tw-rounded-lg" href="/tarif/update/{{ i.id }}/">Ubah</a>
+                <button class="tw-py-1 tw-px-2 tw-bg-red-400 tw-rounded-lg" onClick="deleteTarif({{ i.id }});">Hapus</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

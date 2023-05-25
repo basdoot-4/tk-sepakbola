@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Pemain</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar-manajer.html' %}
+<div class="container mt-5">
+    <h2 style="text-align: center; margin-bottom: 75px;">Tim {{ nama_tim }}</h2>
+    <h2 style="text-align: center; margin-bottom: 50px;">Daftar Pemain</h2>
+    <form method="POST" action="{% url 'submit_pemain' %}">
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-4">
+                <label for="playerDropdown" class="form-label">Pemain yang mau didaftarkan:</label>
+                </div>
+                <div class="col-8">
+                
+                <select class="form-select" id="playerDropdown" name="playerDropdown">
+                    <option selected disabled>-- Pilih Pemain --</option>
+                    {% for pemain in list_pemain %}
+                        <option value="{{ pemain.id_pemain }}">{{ pemain.nama_depan }} {{pemain.nama_belakang}} - ({{ pemain.posisi }})</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+            
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin: auto; display: block;">Submit</button>
+    </form>
+
+    <h2 style="text-align: center; margin-bottom: 50px;">Daftar Pelatih</h2>
+    <form method="POST" action="{% url 'submit_pelatih' %}">
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-4">
+                <label for="playerDropdown" class="form-label">Pelatih yang mau didaftarkan:</label>
+                </div>
+                <div class="col-8">
+                
+                <select class="form-select" id="playerDropdown" name="playerDropdown">
+                    <option selected disabled>-- Pilih Pelatih --</option>
+                    {% for pelatih in list_pelatih %}
+                        <option value="{{ pelatih.id_pelatih }}">{{ pelatih.nama_depan }} - ({{ pelatih.spesialisasi }})</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+            
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin: auto; display: block;">Submit</button>
+    </form>
+</div>
+
+{% endblock content %}

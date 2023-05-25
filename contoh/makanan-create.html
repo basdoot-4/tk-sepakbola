@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+<script>
+  const addIngrDropdown = () => {
+    $("#ingr-dropdowns").append(`
+    <select class="ingr-inp tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" required>
+      <option disabled selected>Bahan Makanan</option>
+      {% for i in ingredient %}
+      <option value="{{ i.id }}">{{ i.name }}</option>
+      {% endfor %}
+    </select>
+    `);
+  }
+
+  const addFood = () => {
+    $("#error-empty").addClass("tw-hidden");
+    $("#success").addClass("tw-hidden");
+
+    const name = $("#name-inp").val();
+    const desc = $("#desc-inp").val();
+    const stock = $("#stock-inp").val();
+    const price = $("#price-inp").val();
+    const category = $("#category-inp").val();
+    const ingr = [];
+
+    $(".ingr-inp").each(function () {
+      ingr.push($(this).val());
+    });
+
+    if(!name || !desc || !stock || !price || !category || !ingr.length){
+      $("#error-empty").removeClass("tw-hidden");
+      return;
+    }
+
+    $.post("/makanan/create/post/", {
+      name,
+      desc,
+      stock,
+      price,
+      category,
+      ingr,
+      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
+    },
+    () => {
+      $("#success").removeClass("tw-hidden");
+      window.location.href = "/makanan/";
+    })
+
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% if role == "admin" %}
+    {% include 'navbar-admin.html' %}
+  {% endif %}
+  {% if role == "customer" %}
+    {% include 'navbar-pelanggan.html' %}
+  {% endif %}
+  {% if role == "restaurant" %}
+    {% include 'navbar-restoran.html' %}
+  {% endif %}
+  {% if role == "courier" %}
+    {% include 'navbar-kurir.html' %}
+  {% endif %}
+<div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-p-20">
+  <div class="tw-font-bold tw-text-2xl tw-pb-4">Form Penambahan Makanan</div>
+
+  <!-- FORM -->
+  <div class="tw-flex tw-flex-col tw-gap-4">
+    <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+      {% csrf_token %}
+      <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nama Makanan</p>
+            <input id="name-inp" type="text" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Nama" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Deskripsi</p>
+            <input id="desc-inp" type="text" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Deskripsi" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Stok</p>
+            <input id="stock-inp" type="number" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Stok" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Harga</p>
+            <input id="price-inp" type="number" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Harga" />
+          </div>
+        </div>
+  
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Kategori</p>
+            <select id="category-inp" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" required>
+              <option value="" disabled selected>Kategori</option>
+              {% for i in category %}
+              <option value="{{ i.id }}">{{ i.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Bahan Makanan</p>
+            <div id="ingr-dropdowns" class="tw-flex tw-flex-col tw-gap-4">
+              <select class="ingr-inp tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" required>
+                <option value="" disabled selected>Bahan Makanan</option>
+                {% for i in ingredient %}
+                <option value="{{ i.id }}">{{ i.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div>
+            <button class="tw-p-2 tw-rounded-lg tw-bg-blue-400 tw-w-[20%] tw-font-bold tw-text-center" onClick="addIngrDropdown();">+</button>
+          </div>
+        </div>
+      </div>
+      <button class="tw-rounded-lg tw-px-4 tw-py-2 tw-bg-blue-400" onClick="addFood();">Simpan</button>
+    </div>
+
+    <div id="error-empty" class="tw-bg-red-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-red-700 tw-hidden">
+      <p>Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.</p>
+    </div>
+    <div id="success" class="tw-bg-green-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-green-700 tw-hidden">
+      <p>Berhasil menambahkan makanan.</p>
+    </div>
+  </div>
+</div>
+{% endblock content %}

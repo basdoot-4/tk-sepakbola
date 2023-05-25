@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+<script>
+  $(document).ready(() => {
+    $("#login-btn").click(() => {
+      $("#error-fail").addClass("tw-hidden");
+      $("#success").addClass("tw-hidden");
+
+      $.post("/login/post/", {
+        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        email: $("#email-inp").val(),
+        password: $("#password-inp").val()
+      },
+      () => {
+        $("#success").removeClass("tw-hidden");
+        window.location.href = "/";
+      }).fail(() => {
+        $("#error-fail").removeClass("tw-hidden");
+      });
+    });
+  });
+</script>
+{% endblock meta %}
+
+{% block content %}
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20 gap-4">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Login</div>
+
+    <!-- FORM -->
+    <div class="tw-flex tw-flex-col tw-gap-4">
+      <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          {% csrf_token %}
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Email</p>
+            <input id="email-inp" type="text" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Email" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Password</p>
+            <input id="password-inp" type="password" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Password" />
+          </div>
+        </div>
+        <button id="login-btn" class="tw-rounded-lg tw-px-4 tw-py-2 tw-bg-blue-400">Login</button>
+      </div>
+
+      <div id="error-fail" class="tw-bg-red-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-red-700 tw-hidden">
+        <p>Email atau password salah.</p>
+      </div>
+      <div id="success" class="tw-bg-green-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-green-700 tw-hidden">
+        <p>Berhasil login.</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

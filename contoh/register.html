@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+<div class="tw-flex tw-flex-col tw-items-center tw-p-20 gap-4">
+  <div class="tw-font-bold tw-text-2xl tw-pb-4">Register</div>
+
+  <div class="tw-flex tw-flex-col tw-gap-4">
+    <a class="tw-bg-blue-400 tw-rounded-lg tw-px-4 tw-py-2 text-center" href="/register/admin">Admin</a>
+    <a class="tw-bg-blue-400 tw-rounded-lg tw-px-4 tw-py-2 text-center" href="/register/pelanggan">Pelanggan</a>
+    <a class="tw-bg-blue-400 tw-rounded-lg tw-px-4 tw-py-2 text-center" href="/register/restoran">Restoran</a>
+    <a class="tw-bg-blue-400 tw-rounded-lg tw-px-4 tw-py-2 text-center" href="/register/kurir">Kurir</a>
+  </div>
+</div>
+{% endblock content %}
