@@ -169,7 +169,7 @@ def isi_rapat(request):
         """
         result = commit_query(query)
 
-        return redirect('/rapat/mulai')
+        return redirect('/dashboard')
     
     return render(request, 'isi-rapat.html', context=context) 
 

@@ -27,7 +27,7 @@
     <td>{{ i.start_datetime }}</td>
       <form method="POST">
         {% csrf_token %} 
-        <td><button class="btn text-primary" type="submit" name="id_pertandingan" id="id_pertandingan" value="{{i.id_pertandingan}}">Ikuti</button></td>
+        <td><button class="btn text-primary" type="submit" name="id_pertandingan" id="id_pertandingan" value="{{i.id_pertandingan}}">Mulai Rapat</button></td>
       </form>
   </tr>
   {% endfor %}
