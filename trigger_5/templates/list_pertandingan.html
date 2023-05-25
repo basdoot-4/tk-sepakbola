@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+<title>List Pertandingan</title>
+{% endblock meta %}
+
 {% block content %}
-{% if role.0 == 'penonton'%}
+{% if role.0 == 'penonton' %}
   {% include 'navbar-penonton.html' %}
 {% else %}
   {% include 'navbar-manajer.html' %}
 {% endif %}
-<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">List pertandingan</h3>
+<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">List Pertandingan</h3>
 
+
+{% if pertandingan %}
 <table class="table table-bordered" style="width: fit-content;margin-left:auto;margin-right:auto">
   <tr style="background-color:lightgrey; text-align: center;">
     <th>Tim bertanding</th>
     <th>Stadium</th>
-    <th>Tanggal dan Waktu</th>
+    <th>Tanggal</th>
   </tr>
   
   {% for i in pertandingan %}
@@ -24,5 +30,9 @@
   </tr>
   {% endfor %}
 </table>
+{% else %}
+  <p class="text-center mt-3" style="margin-top: 10px;">Tidak ada pertandingan</p>
+{% endif %}
+
 
 {% endblock content %}

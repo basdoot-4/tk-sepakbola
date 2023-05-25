@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from utils.DBUtils import execute_query, commit_query
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from utils.decorator import login_required
 
 # Create your views here.
+@login_required
 def show_pilih_stadium(request):
     if request.method == "POST":
         selected_stadium = request.POST.get("stadium_dipilih")
@@ -30,6 +32,7 @@ def show_pilih_stadium(request):
 
     return render(request, "pilih_stadium.html", context=context)
 
+@login_required
 def show_pilih_pertandingan(request):
     stadium = request.COOKIES["tiket_stadium"]
     tanggal = request.COOKIES["tiket_tanggal"]
@@ -60,6 +63,7 @@ def show_pilih_pertandingan(request):
     print(context["tima_timb"])
     return render(request, "pilih_pertandingan.html", context=context)
 
+# @login_required
 def show_beli_tiket(request, id):
     context = {
         "error":[],
@@ -117,6 +121,7 @@ def generate_error_message(exception):
     msg = msg[:msg.index('CONTEXT')-1]
     return msg
 
+@login_required
 def show_list_pertandingan(request):
     role = request.session["role"]
     id_user = request.session["id_user"]
@@ -126,8 +131,10 @@ def show_list_pertandingan(request):
         "pertandingan":[],
     }
 
-    context["role"]+=role
-    
+    context["role"].append(role)
+
+    print("role aku: " + context["role"][0])
+
     if role == "manajer":
         query = f"""
         SELECT string_agg(t.nama_tim, ' vs ') AS tim, s.nama AS nama_stadium, start_datetime AS tanggal_dan_waktu
@@ -138,7 +145,7 @@ def show_list_pertandingan(request):
         ORDER BY tanggal_dan_waktu;
         """
         result = execute_query(query)
-        print(result)
+        # print(result)
         context["pertandingan"]+=result
         
     else:
@@ -155,6 +162,7 @@ def show_list_pertandingan(request):
     
     return render(request, 'list_pertandingan.html', context=context)
 
+@login_required
 def show_history_rapat(request):
     id_user = request.session["id_user"]
 
