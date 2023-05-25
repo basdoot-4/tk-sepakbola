@@ -15,6 +15,7 @@
 
     <!-- FORM -->
     <form method="POST">
+      {% csrf_token %}
       <div class="form-group">
         <label for="firstName">First Name:</label>
         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
@@ -60,7 +61,7 @@
       </div>
       <div class="form-group">
         <label for="email">Jabatan:</label>
-        <input type="text" class="form-control" id="email" placeholder="Enter jabatan" required>
+        <input type="text" class="form-control" id="email" name="jabatan" placeholder="Enter jabatan" required>
       </div>
       <button type="submit" class="btn btn-primary">Daftar</button>
     </form>

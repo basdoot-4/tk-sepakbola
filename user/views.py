@@ -1,7 +1,11 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
-from utils.DBUtils import execute_query
+from django.contrib import messages
+from utils.DBUtils import execute_query, execute_query2
 from utils.decorator import login_required
+import uuid
+import string
+import random
 
 # Create your views here.
 def index(request):
@@ -15,7 +19,41 @@ def register_manajer(request):
 
 # Function untuk register panitia
 def register_panitia(request):
-    return render(request, 'register-panitia.html')
+    if request.method == "GET":
+        return render(request, "register-panitia.html")
+
+    id_panitia = generate_id()
+    jabatan = request.POST['jabatan']
+    username = generate_username(request.POST['firstName'],request.POST['lastName'])  # Generate the username as per your requirements
+    password = generate_password()  # Generate the password as per your requirements
+
+    print(f"Username: {username}")
+    print(f"Password: {password}")
+
+    try:
+        # Insert into USER_SYSTEM table
+        insert_user = f"INSERT INTO USER_SYSTEM (username, password) " \
+                      f"VALUES ('{username}', '{password}')"
+        execute_query2(insert_user)
+
+        # Insert into NON_PEMAIN table
+        insert_non_pemain = f"INSERT INTO NON_PEMAIN (id, nama_depan, nama_belakang, nomor_hp, email, alamat) " \
+                            f"VALUES ('{id_panitia}', '{request.POST['firstName']}', '{request.POST['lastName']}', " \
+                            f"'{request.POST['phoneNumber']}', '{request.POST['email']}', '{request.POST['address']}')"
+        execute_query2(insert_non_pemain)
+
+        # Insert into PANITIA table
+        insert_panitia = f"INSERT INTO PANITIA (id_panitia, jabatan, username) " \
+                         f"VALUES ('{id_panitia}', '{jabatan}', '{username}')"
+        execute_query2(insert_panitia)
+
+    except Exception as e:
+        error_msg = generate_error_message(e)
+        messages.error(request, generate_error_message(e))
+        
+        return render(request, "register-panitia.html")
+
+    return render(request, "login.html")
 
 def register_penonton(request):
     return render(request, 'register-penonton.html')
@@ -211,3 +249,31 @@ def logout(request):
     request.session.flush()
     
     return redirect('/')
+
+
+def generate_id():
+    id = str(uuid.uuid4())
+    while is_exist_id_non_pemain(id):
+        id = str(uuid.uuid4())
+    return id
+
+def is_exist_id_non_pemain(id):
+    query = f'SELECT id FROM NON_PEMAIN NP WHERE NP.id = \'{id}\''
+    lst = execute_query(query)
+    return len(lst) > 0
+
+def generate_username(nama_depan,nama_belakang):
+    username = f"{nama_depan}{nama_belakang}"
+    return username
+
+
+def generate_password(length=8):
+    # Generate a random password of specified length
+    characters = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def generate_error_message(exception):
+    msg = str(exception)
+    msg = msg[:msg.index('CONTEXT')-1]
+    return msg
