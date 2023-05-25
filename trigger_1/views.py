@@ -15,7 +15,7 @@ def daftarTim(request):
     cek_team = cek_tim_manajer(id_manajer)
 
     if cek_team:
-        return redirect('kelolaTim.html')
+        return redirect('/kelola-tim')
 
     if request.method == 'POST':
         nama_tim = request.POST.get('nama_tim')
@@ -25,7 +25,7 @@ def daftarTim(request):
         create_new_team(nama_tim, universitas, id_manajer) 
         
         # Redirect to the next page
-        return redirect('kelolaTim.html')
+        return redirect('/kelola-tim')
 
     return render(request, 'pendaftaranTim.html')
 
@@ -34,6 +34,13 @@ def daftarTim(request):
 def kelola_tim(request):
     id_manajer = request.session["id_user"]
     nama_tim = get_tim_manajer(id_manajer)
+    print("id_manajer:" + id_manajer)
+
+    cek_team = cek_tim_manajer(id_manajer)
+
+    if cek_team != True:
+        return redirect('/daftar-tim')
+    
 
     # Query 1 untuk mengambil semua pemain yang memiliki tim sama dengan manajer
     query_pemain = f"""
@@ -49,9 +56,10 @@ def kelola_tim(request):
 
     # Query 2 untuk mengambil semua pelatih yang memiliki tim sama dengan manajer
     query_pelatih = f"""
-    SELECT N.nama_depan, N.nama_belakang, N.nomor_hp, N.email, N.alamat
+    SELECT N.nama_depan, N.nama_belakang, N.nomor_hp, N.email, N.alamat, SP.spesialisasi
     FROM PELATIH AS PL
     JOIN NON_PEMAIN AS N ON PL.id_pelatih = N.id
+    JOIN SPESIALISASI_PELATIH AS SP ON PL.id_pelatih = SP.id_pelatih
     WHERE PL.nama_tim IN (
         SELECT T.nama_tim
         FROM TIM_MANAJER AS TM
@@ -83,7 +91,7 @@ def daftar_pemain_pelatih(request):
     WHERE nama_tim IS NULL
     """
     query_pelatih = """
-    SELECT N.nama_depan, N.nama_belakang, SP.Spesialisasi, 
+    SELECT N.nama_depan, N.nama_belakang, SP.Spesialisasi
     FROM PELATIH AS PL
     JOIN NON_PEMAIN AS N ON PL.id_pelatih = N.id
     JOIN SPESIALISASI_PELATIH AS SP ON PL.id_pelatih = SP.id_pelatih
@@ -98,7 +106,7 @@ def daftar_pemain_pelatih(request):
         'list_pelatih': list_pelatih_tersedia
     }
 
-    return render(request, 'daftarPemainPelatih.html', context=context)
+    return render(request, 'daftarPemainDanPelatih.html', context=context)
 
 # Util Function
 # Function 1 untuk cek apakah manajer punya tim atau belum
@@ -106,7 +114,7 @@ def cek_tim_manajer(id_manajer):
     query = f"""
     SELECT COUNT(*)
     FROM TIM_MANAJER
-    WHERE TIM.id_manajer = '{id_manajer}'
+    WHERE TIM_MANAJER.id_manajer = '{id_manajer}'
     """
     result = execute_query(query)
     count = result[0]['count']
