@@ -122,9 +122,12 @@ def show_list_pertandingan(request):
     id_user = request.session["id_user"]
 
     context = {
+        "role": [],
         "pertandingan":[],
     }
 
+    context["role"]+=role
+    
     if role == "manajer":
         query = f"""
         SELECT string_agg(t.nama_tim, ' vs ') AS tim, s.nama AS nama_stadium, start_datetime AS tanggal_dan_waktu
