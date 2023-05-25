@@ -13,6 +13,7 @@ def register(request):
 def register_manajer(request):
     return render(request, 'register-manajer.html')
 
+# Function untuk register panitia
 def register_panitia(request):
     return render(request, 'register-panitia.html')
 
