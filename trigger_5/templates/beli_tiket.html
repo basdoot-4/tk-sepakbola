@@ -1,43 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beli Tiket</title>
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+crossorigin="anonymous"
+/>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+{% endblock meta %}
+
 {% block content %}
 {% include 'navbar-penonton.html' %}
 
 <h3 style="text-align: center;margin-top:20px;margin-bottom:15px">Beli Tiket</h3>
 
-<form style="margin-left:15px" method="POST">
-{% csrf_token %}
-  <div class="form-group" style="margin-bottom:10px">
-    <label class="mr-sm-2" for="inlineFormCustomSelect">Stadium:</label>
-    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="jenis_tiket_dipilih" required>
-      <option value="VIP">VIP</option>
-      <option value="Main East">Main East</option>
-      <option value="Kategori 1">Kategori 1</option>
-      <option value="Kategori 2">Kategori 2</option>
-    </select>
-  </div>
-  <div style="margin-bottom:10px">
-    <label class="mr-sm-2" for="inlineFormCustomSelect">Pembayaran:</label>
-    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="pembayaran_dipilih">
-      <option value="ShopeePay">ShopeePay</option>
-      <option value="GoPay">GoPay</option>
-      <option value="Dana">Dana</option>
-      <option value="Doku Wallet">Doku Wallet</option>
-      <option value="LinkAja">LinkAja</option>
-    </select>
-  </div>
-  <div class="col-md-12 text-center">
-  	<button type="submit" class="btn btn-primary" style="margin:10px">Beli</button>
-  </div>
-</form>
-
-{% if error %}
-  <div class="alert alert-danger" role="alert" style="width:500px;margin-left: auto;margin-right: auto;">
-    {{ error }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
-  </div>
-
-{% endif %}
-
+<div class="container">
+  <form style="margin-left:15px" method="POST">
+    {% csrf_token %}
+      <div class="form-group" style="margin-bottom:10px">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Jenis tiket:</label>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="jenis_tiket_dipilih" required>
+          <option value="VIP">VIP</option>
+          <option value="Main East">Main East</option>
+          <option value="Kategori 1">Kategori 1</option>
+          <option value="Kategori 2">Kategori 2</option>
+        </select>
+      </div>
+      <div style="margin-bottom:10px">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Pembayaran:</label>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="pembayaran_dipilih">
+          <option value="ShopeePay">ShopeePay</option>
+          <option value="GoPay">GoPay</option>
+          <option value="Dana">Dana</option>
+          <option value="Doku Wallet">Doku Wallet</option>
+          <option value="LinkAja">LinkAja</option>
+        </select>
+      </div>
+      <div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary" style="margin:10px">Beli</button>
+      </div>
+    </form>
+    
+    {% if error %}
+      <div class="alert alert-danger" role="alert" style="width:500px;margin-left:auto;margin-right: auto;">
+        {{ error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+      </div>
+    
+    {% endif %}
+</div>
 {% endblock content %}
