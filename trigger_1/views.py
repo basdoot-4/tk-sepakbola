@@ -182,7 +182,7 @@ def submit_pemain(request):
         WHERE id_pemain = '{id_pemain}'
         """
         execute_query(query)
-        return redirect('daftarPemainPelatih.html')
+        return redirect('daftar-pemain-pelatih')
 
 # Function 7 untuk mendaftarkan pelatih
 def submit_pelatih(request):
@@ -196,4 +196,4 @@ def submit_pelatih(request):
         WHERE id_pelatih = '{id_pelatih}'
         """
         execute_query(query)
-        return redirect('daftarPemainPelatih.html')
+        return redirect('daftar-pemain-pelatih')
