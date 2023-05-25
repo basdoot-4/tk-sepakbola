@@ -175,7 +175,7 @@ def dashboard(request):
             print(result)
             context["rapat"]+=result
 
-        return render(request, 'dashboard-panitia.html')
+        return render(request, 'dashboard-panitia.html', context=context)
     else:
         username = request.session["username"]
         #Informasi User
@@ -203,7 +203,7 @@ def dashboard(request):
             result = execute_query(query)
             print(result)
             context["pembelian"]+=result
-        return render(request, 'dashboard-penonton.html')
+        return render(request, 'dashboard-penonton.html', context=context)
 
 @login_required
 def logout(request):
