@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('trigger_4.urls')),
     path('',include('trigger_1.urls')),
     path('', include('trigger_5.urls')),
+    path('', include('trigger_3.urls')),
 ]
