@@ -16,3 +16,8 @@ def execute_query(query):
             for row in cursor.fetchall()
         ]
     return results
+
+def commit_query(query):
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        connection.commit()

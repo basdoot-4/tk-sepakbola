@@ -24,10 +24,11 @@
   <tr>
     <td>{{ i.tim_tanding }}</td>
     <td>{{ i.nama }}</td>
-    <td>{{ i.start_datetime }}-{{ i.end_datetime }}</td>
-    <td>
-      <a type="button" class="btn btn-outline-success btn-sm" href="{% url 'trigger2:isi_rapat' id=i.id_pertandingan %}">Mulai rapat</a>
-    </td>
+    <td>{{ i.start_datetime }}</td>
+      <form method="POST">
+        {% csrf_token %} 
+        <td><button class="btn text-primary" type="submit" name="id_pertandingan" id="id_pertandingan" value="{{i.id_pertandingan}}">Ikuti</td>
+      </form>
   </tr>
   {% endfor %}
 </table>

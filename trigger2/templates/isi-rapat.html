@@ -13,7 +13,7 @@
 {% include 'navbar-panitia.html' %}
 <h3 style="text-align: center;margin-top:20px;margin-bottom: 15px;">Rapat Pertandingan {{ tanding.tim_tanding }}</h3>
 
-<form method="POST" action="/rapat/isi/post">
+<form method="POST">
   {% csrf_token %}
   <label style="margin-left: 290px;">Isi rapat:</label>
   <textarea class="form-control" style="width:60%;margin-left:auto;margin-right:auto" name="isi_rapat"></textarea>
