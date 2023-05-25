@@ -8,7 +8,7 @@
 
 {% block content %}
 {% include 'navbar-manajer.html' %}
-<h2>Tim {{ Manajer }}</h2>
+<h2>Tim {{ nama_tim }}</h2>
 
 <div class="row">
   <div class="col-1"></div>
@@ -45,10 +45,10 @@
           <td>{{ pemain.npm }}</td>
           <td>{{ pemain.jenjang }}</td>
           <td>
-            <button class="btn btn-success">Make Captain</button>
+            <a href="{% url 'make_captain' pemain.id_pemain %}" class="btn btn-success">Make Captain</a>
             <br />
             <br />
-            <button class="btn btn-danger">Delete</button>
+            <a href="{% url 'delete_player' pemain.id_pemain %}" class="btn btn-danger">Delete</a>
           </td>
         </tr>
         {% endfor %}
@@ -77,7 +77,7 @@
           <td colspan="2">{{ pelatih.alamat }}</td>
           <td colspan="2">{{ pelatih.spesialisasi }}</td>
           <td>
-            <button class="btn btn-danger">Delete</button>
+            <a href="{% url 'delete_coach' pelatih.id_pelatih %}" class="btn btn-danger">Delete</a>
           </td>
         </tr>
         {% endfor %}

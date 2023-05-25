@@ -33,6 +33,7 @@ def daftarTim(request):
 @login_required
 def kelola_tim(request):
     id_manajer = request.session["id_user"]
+    nama_tim = get_tim_manajer(id_manajer)
 
     # Query 1 untuk mengambil semua pemain yang memiliki tim sama dengan manajer
     query_pemain = f"""
@@ -61,6 +62,7 @@ def kelola_tim(request):
     list_pelatih = execute_query(query_pelatih)
 
     context = {
+        "nama_tim": nama_tim,
         "list_pemain": list_pemain,
         "list_pelatih": list_pelatih
     }
@@ -91,11 +93,12 @@ def daftar_pemain_pelatih(request):
     list_pelatih_tersedia = execute_query(query_pelatih)
 
     context = {
+        'nama_tim': nama_tim,
         'list_pemain': list_pemain_tersedia,
         'list_pelatih': list_pelatih_tersedia
     }
 
-    return render(request, 'add_member.html', context=context)
+    return render(request, 'daftarPemainPelatih.html', context=context)
 
 # Util Function
 # Function 1 untuk cek apakah manajer punya tim atau belum
@@ -134,3 +137,63 @@ def get_tim_manajer(id_manajer):
     result = execute_query(query)
     nama_tim = result[0]['nama_tim']
     return nama_tim
+
+# Function 3 untuk membuat pemain jadi kapten
+def make_captain(request, id_pemain):
+    query = f"""
+    UPDATE PEMAIN
+    SET is_captain = TRUE
+    WHERE id_pemain = '{id_pemain}'
+    """
+    execute_query(query)
+    return redirect('kelola_tim')
+
+# Function 4 untuk menghapus pemain dari tim
+def remove_player(request, id_pemain):
+    query = f"""
+    UPDATE PEMAIN
+    SET nama_tim = NULL
+    WHERE id_pemain = '{id_pemain}'
+    """
+    execute_query(query)
+    return redirect('kelola_tim')
+
+# Function 5 untuk menghapus pelatih dari tim
+def remove_coach(request, id_pelatih):
+    query = f"""
+    UPDATE PELATIH
+    SET nama_tim = NULL
+    WHERE id_pelatih = '{id_pelatih}'
+    """
+    execute_query(query)
+    return redirect('kelola_tim')
+
+# Function 6 untuk mendaftarkan pemain
+def submit_pemain(request):
+
+    id_manajer = request.session["id_user"]
+    nama_tim = get_tim_manajer(id_manajer)
+
+    if request.method == 'POST':
+        id_pemain = request.POST.get('playerDropdown')
+        query = f"""
+        UPDATE PEMAIN
+        SET nama_tim = '{nama_tim}'
+        WHERE id_pemain = '{id_pemain}'
+        """
+        execute_query(query)
+        return redirect('daftarPemainPelatih.html')
+
+# Function 7 untuk mendaftarkan pelatih
+def submit_pelatih(request):
+    id_manajer = request.session["id_user"]
+    nama_tim = get_tim_manajer(id_manajer)
+    if request.method == 'POST':
+        id_pelatih = request.POST.get('pelatihDropdown')
+        query = f"""
+        UPDATE PELATIH
+        SET nama_tim = '{nama_tim}'
+        WHERE id_pelatih = '{id_pelatih}'
+        """
+        execute_query(query)
+        return redirect('daftarPemainPelatih.html')
