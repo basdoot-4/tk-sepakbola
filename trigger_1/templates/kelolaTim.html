@@ -45,10 +45,21 @@
           <td>{{ pemain.npm }}</td>
           <td>{{ pemain.jenjang }}</td>
           <td>
-            <a href="{% url 'make_captain' pemain.id_pemain %}" class="btn btn-success">Make Captain</a>
-            <br />
-            <br />
-            <a href="{% url 'delete_player' pemain.id_pemain %}" class="btn btn-danger">Delete</a>
+            {% if pemain.is_captain %}
+            <form action="{% url 'trigger_1:remove_player' pemain.id_pemain %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">Remove</button>
+            </form>
+            {% else %}
+            <form action="{% url 'trigger_1:make_captain' pemain.id_pemain %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">Make Captain</button>
+            </form>
+            <form action="{% url 'trigger_1:remove_player' pemain.id_pemain %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">Remove</button>
+            </form>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
@@ -71,20 +82,20 @@
         {% for pelatih in list_pelatih %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ pelatih.nama_tim }}</td>
+          <td>{{ pelatih.nama_depan }} {{ pelatih.nama_belakang}}</td>
           <td>{{ pelatih.nomor_hp }}</td>
           <td>{{ pelatih.email }}</td>
           <td colspan="2">{{ pelatih.alamat }}</td>
           <td colspan="2">{{ pelatih.spesialisasi }}</td>
           <td>
-            <a href="{% url 'delete_coach' pelatih.id_pelatih %}" class="btn btn-danger">Delete</a>
+            <button>Remove</button>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
 
-    <button class="btn btn-dark">Tambah Pemain</button>
+    <button class="btn btn-dark" href="/daftar-pemain-pelatih">Tambah Pemain</button>
     <br />
     <button class="btn btn-dark">Tambah Pelatih</button>
     <br>
