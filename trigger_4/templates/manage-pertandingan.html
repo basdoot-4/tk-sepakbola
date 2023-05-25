@@ -47,111 +47,12 @@
 
   <div data-page="2" class="container table-container" style="display: none;">
     <h5 style="color: rgb(124, 120, 120);">Group Stage 2</h5>
-    <table class="table table-sm table-hover table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Grup</th>
-          <th scope="col">Tim</th>
-          <th scope="col">Waktu</th>
-          <th scope="col">Pemenang</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr> 
-          <th scope="row">1</th>
-          <td>A</td>
-          <td>A vs I</td>
-          <td>1 May 2023, 13:00</td>
-          <td>I</td>
-          <td class="edit-toggle">
-            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 1</a> <br>
-            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 2</a>
-            <!-- <a class="btn btn-sm btn-info " href="#">Update</a> -->
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>A</td>
-          <td>D vs E</td>
-          <td><span class="badge badge-pill badge-warning">
-            waktu dimulai -5 menit
-          </span></td>
-          <td>-</td>
-          <td class="edit-toggle">
-            <!-- <a class="badge badge-peristiwa" href="#" role="button">Lihat Peristiwa Tim 1</a> <br>
-            <a class="badge badge-peristiwa" href="#" >Lihat Peristiwa Tim 2</a> -->
-            <a class="btn btn-sm btn-success" href="#">Mulai</a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>B</td>
-          <td>? vs ?</td>
-          <td>-</td>
-          <td>-</td>
-          <td class="edit-toggle">
-            <a class="badge badge-pill badge-danger" href="#" role="button">Belum Waktunya</a>
-            <!-- <a class="btn btn-sm btn-info" href="#">Update</a> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- IF NOT EMPTY -->
-    <div style="text-align: center;">
-      <a class="btn btn-dark" href="#" role="button">
-        FINISH
-      </a>
-    </div>
+    {% include 'tabel-pertandingan-lain.html' %}
   </div>
 
   <div data-page="3" class="container table-container" style="display: none;">
     <h5 style="color: rgb(124, 120, 120);">Non Stage</h5>
-    <table class="table table-sm table-hover table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Tim</th>
-          <th scope="col">Waktu</th>
-          <th scope="col">Pemenang</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr> 
-          <th scope="row">1</th>
-          <td>A vs I</td>
-          <td>28 April 2023, 13:00</td>
-          <td>A</td>
-          <td>
-            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 1</a> <br>
-            <a class="badge badge-peristiwa" href="#">Lihat Peristiwa Tim 2</a>
-          </td>
-        </tr>
-
-        <tr> 
-          <th scope="row">2</th>
-          <td>? vs ?</td>
-          <td>-</td>
-          <td>-</td>
-          <td>
-            <a class="badge badge-pill badge-danger" href="#">Belum Waktunya</a>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-
-    <!-- IF NOT EMPTY -->
-    <div style="text-align: center;">
-      <a class="btn btn-dark" href="#" role="button">
-        FINISH
-      </a>
-    </div>
+    {% include 'tabel-pertandingan-lain.html' %}
   </div>
 </div>
 
