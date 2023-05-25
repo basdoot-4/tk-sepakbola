@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+<div class="tw-flex tw-flex-col tw-items-center tw-p-20 gap-4">
+  <div class="tw-font-bold tw-text-2xl tw-pb-4">Register Restoran</div>
+
+  <!-- FORM -->
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+      <div class="tw-grid tw-grid-cols-4 tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Email</p>
+            <input type="email" name="email" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Email" required />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Password</p>
+            <input type="password" name="password" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Password" required />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nama Depan</p>
+            <input type="text" name="fname" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nama" required />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nama Belakang</p>
+            <input type="text" name="lname" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nama" required />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nomor HP</p>
+            <input type="number" name="noHp" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nomor HP" />
+          </div>
+        </div>
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">NIK</p>
+            <input type="text" name="nik" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="NIK" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nama Bank</p>
+            <input type="text" name="bankName" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nama Bank" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nomor Rekening</p>
+            <input type="number" name="noRek" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nomor Rekening" />
+          </div>
+        </div>
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nama Restoran</p>
+            <input type="text" name="namaResto" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nama Restoran" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Cabang</p>
+            <input type="text" name="cabang" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Cabang" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Nomor Telepon</p>
+            <input type="text" name="noTlp" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Nomor Telepon" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Jalan</p>
+            <input type="text" name="jln" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Jalan" />
+          </div>
+        </div>
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Kecamatan</p>
+            <input type="text" name="kec" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Kecamatan" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Kota</p>
+            <input type="text" name="kota" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Kota" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Provinsi</p>
+            <input type="text" name="prov" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="Provinsi" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">rating</p>
+            <input type="number" name="rating" required class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2"
+              placeholder="rating" />
+          </div>
+          <div class="tw-flex tw-flex-col tw-gap-2">
+            <p class="tw-font-semibold">Kategori Restoran</p>
+            <select name="cat" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" required>
+              <option disabled selected>Kategori Restoran</option>
+              <option value="1">Fast Food</option>
+              <option value="2">Japanese</option>
+              <option value="3">Korean</option>
+              <option value="4">Western</option>
+              <option value="5">Middle Eastern</option>
+              <option value="6">Indonesian</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="tw-rounded-lg tw-px-4 tw-py-2 tw-bg-blue-400" type="submit">Daftar</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

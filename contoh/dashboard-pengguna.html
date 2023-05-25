@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+
+    {% if role == "customer" %}
+      {% include 'navbar-pelanggan.html' %}
+    {% endif %}
+    {% if role == "restaurant" %}
+      {% include 'navbar-restoran.html' %}
+    {% endif %}
+    {% if role == "courier" %}
+      {% include 'navbar-kurir.html' %}
+    {% endif %}
+  
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20 tw-pt-8 gap-4">
+    <div class="tw-flex tw-flex-col tw-items-center">
+      <div class="tw-font-bold tw-text-2xl">Dashboard Pengguna</div>
+    </div>
+
+    <div class="tw-flex tw-flex-col tw-justify-center tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-8">
+      <div class="tw-flex tw-justify-center tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Email</p>
+            <p>{{ user.email }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Password</p>
+            <p>{{ user.password }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nama</p>
+            <p>{{ user.name }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nomor HP</p>
+            <p>{{ user.nohp }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">NIK</p>
+            <p>{{ user.nik }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nama Bank</p>
+            <p>{{ user.bank }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nomor Rekening</p>
+            <p>{{ user.rek }}</p>
+          </div>
+        </div>
+  
+        {% if role == "customer" %}
+        <!-- INFO PELANGGAN -->
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Tanggal lahir</p>
+            <p>{{ customer.birthdate }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jenis Kelamin</p>
+            <p>{{ customer.sex }}</p>
+          </div>
+        </div>
+        {% endif %}
+  
+        {% if role == "restaurant" %}
+        <!-- INFO RESTORAN -->
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nama restoran</p>
+            <p>{{ restaurant.name }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Cabang</p>
+            <p>{{ restaurant.branch }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nomor Telepon</p>
+            <p>{{ restaurant.nohp }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jalan</p>
+            <p>{{ restaurant.jalan }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kecamatan</p>
+            <p>{{ restaurant.kecamatan }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kota</p>
+            <p>{{ restaurant.kota}}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Provinsi</p>
+            <p>{{ restaurant.provinsi }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Rating</p>
+            <p>{{ restaurant.rating }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Kategori</p>
+            <p>{{ restaurant.category }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jam Operasional</p>
+            <ul class="tw-list-disc">
+              {% for i in restaurant.hours %}
+              <p>{{ i.day }}, {{ i.start }}-{{ i.end }}</p>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+  
+        {% if role == "courier" %}
+        <!-- INFO KURIR -->
+        <div class="tw-flex tw-flex-col tw-gap-4">
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Plat Nomor Kendaraan</p>
+            <p>{{ courier.plat }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Nomor SIM</p>
+            <p>{{ courier.sim }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Jenis Kendaraan</p>
+            <p>{{ courier.type }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col">
+            <p class="tw-font-semibold">Merk Kendaraan</p>
+            <p>{{ courier.brand }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="tw-flex tw-gap-8">
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Status</p>
+          <p>{{ user.status }}</p>
+        </div>
+        {% if user.status == "Terverifikasi" %}
+        <div class="tw-flex tw-flex-col">
+          <p class="tw-font-semibold">Diverifikasi oleh</p>
+          <p>{{ user.admin }}</p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+{% endblock content %}

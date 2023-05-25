@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% if role == "admin" %}
+    {% include 'navbar-admin.html' %}
+  {% endif %}
+  {% if role == "customer" %}
+    {% include 'navbar-pelanggan.html' %}
+  {% endif %}
+  {% if role == "restaurant" %}
+    {% include 'navbar-restoran.html' %}
+  {% endif %}
+  {% if role == "courier" %}
+    {% include 'navbar-kurir.html' %}
+  {% endif %}
+  
+  <div class="tw-flex tw-flex-col tw-items-center tw-p-20">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Daftar Restoran</div>
+
+    <!-- TABLE -->
+    <div class="tw-border-t tw-border-x tw-border-black">
+      <div class="tw-table tw-w-full tw-border-separate">
+        <div class="tw-table-header-group">
+          <div class="tw-table-row tw-text-center tw-font-bold">
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">No</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Nama - Cabang Restoran</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Rating</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">Aksi</div>
+          </div>
+        </div>
+        <div class="tw-table-row-group tw-text-center">
+          {% for i in restoran %}
+          <div class="tw-table-row">
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.num }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.nama }} - {{ i.cabang }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">{{ i.rating }}</div>
+            <div class="tw-table-cell tw-px-4 tw-py-2 tw-border-b tw-border-black">
+              <div class="tw-flex tw-justify-center tw-gap-2">
+                <a class="tw-py-1 tw-px-2 tw-bg-blue-400 tw-rounded-lg" href="/restoran/detail/?rname={{ i.nama }}&rbranch={{ i.cabang }}">Detail</a>
+                <a class="tw-py-1 tw-px-2 tw-bg-blue-400 tw-rounded-lg" href="/makanan/?rname={{ i.nama }}&rbranch={{ i.cabang }}">Menu</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+{% endblock content %}
