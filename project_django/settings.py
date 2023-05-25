@@ -78,7 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project_django.wsgi.application'
 
- CSRF_TRUSTED_ORIGINS = [f'https://tk-sepakbola.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [f'https://tk-sepakbola.up.railway.app']
 
 
 
