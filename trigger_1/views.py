@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
-from utils.DBUtils import execute_query
+from utils.DBUtils import execute_query,execute_query2
 from utils.decorator import login_required
 from datetime import datetime
+from django.contrib import messages
 
 # Create your views here.
 
@@ -56,7 +57,7 @@ def kelola_tim(request):
 
     # Query 2 untuk mengambil semua pelatih yang memiliki tim sama dengan manajer
     query_pelatih = f"""
-    SELECT N.nama_depan, N.nama_belakang, N.nomor_hp, N.email, N.alamat, SP.spesialisasi
+    SELECT N.nama_depan, N.nama_belakang, N.nomor_hp, N.email, N.alamat, SP.spesialisasi, PL.id_pelatih
     FROM PELATIH AS PL
     JOIN NON_PEMAIN AS N ON PL.id_pelatih = N.id
     JOIN SPESIALISASI_PELATIH AS SP ON PL.id_pelatih = SP.id_pelatih
@@ -91,7 +92,7 @@ def daftar_pemain_pelatih(request):
     WHERE nama_tim IS NULL
     """
     query_pelatih = """
-    SELECT N.nama_depan, N.nama_belakang, SP.Spesialisasi
+    SELECT N.nama_depan, N.nama_belakang, SP.Spesialisasi, PL.id_pelatih
     FROM PELATIH AS PL
     JOIN NON_PEMAIN AS N ON PL.id_pelatih = N.id
     JOIN SPESIALISASI_PELATIH AS SP ON PL.id_pelatih = SP.id_pelatih
@@ -154,7 +155,7 @@ def make_captain(request, id_pemain):
     WHERE id_pemain = '{id_pemain}'
     """
     execute_query(query)
-    return redirect('kelola_tim')
+    return redirect('/kelola-tim')
 
 # Function 4 untuk menghapus pemain dari tim
 def remove_player(request, id_pemain):
@@ -163,8 +164,8 @@ def remove_player(request, id_pemain):
     SET nama_tim = NULL
     WHERE id_pemain = '{id_pemain}'
     """
-    execute_query(query)
-    return redirect('kelola_tim')
+    execute_query2(query)
+    return redirect('/kelola-tim')
 
 # Function 5 untuk menghapus pelatih dari tim
 def remove_coach(request, id_pelatih):
@@ -173,8 +174,8 @@ def remove_coach(request, id_pelatih):
     SET nama_tim = NULL
     WHERE id_pelatih = '{id_pelatih}'
     """
-    execute_query(query)
-    return redirect('kelola_tim')
+    execute_query2(query)
+    return redirect('/kelola-tim')
 
 # Function 6 untuk mendaftarkan pemain
 def submit_pemain(request):
@@ -184,13 +185,14 @@ def submit_pemain(request):
 
     if request.method == 'POST':
         id_pemain = request.POST.get('playerDropdown')
+        print(id_pemain)
         query = f"""
         UPDATE PEMAIN
         SET nama_tim = '{nama_tim}'
         WHERE id_pemain = '{id_pemain}'
         """
-        execute_query(query)
-        return redirect('daftar-pemain-pelatih')
+        execute_query2(query)
+        return redirect('/kelola-tim')
 
 # Function 7 untuk mendaftarkan pelatih
 def submit_pelatih(request):
@@ -198,10 +200,23 @@ def submit_pelatih(request):
     nama_tim = get_tim_manajer(id_manajer)
     if request.method == 'POST':
         id_pelatih = request.POST.get('pelatihDropdown')
+        print(id_pelatih)
         query = f"""
         UPDATE PELATIH
         SET nama_tim = '{nama_tim}'
         WHERE id_pelatih = '{id_pelatih}'
         """
-        execute_query(query)
-        return redirect('daftar-pemain-pelatih')
+        try:
+            execute_query2(query)
+            messages.success(request, f"Berhasil menambahkan pelatih")
+            return redirect('/kelola-tim')
+        except Exception as e:
+            messages.error(request, generate_error_message(e))
+            print(generate_error_message(e))
+            return redirect('/kelola-tim')
+    
+# Function 8 untuk ambil error message buat trigger
+def generate_error_message(exception):
+    msg = str(exception)
+    msg = msg[:msg.index('CONTEXT')-1]
+    return msg
