@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'example_app',
     'trigger2',
     'trigger_1',
-    'trigger_5'
+    'trigger_5',
+    'trigger_3',
 ]
 
 MIDDLEWARE = [
