@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    prefix: "tw-",
+  }
+</script>
+<script>
+  const updateTarif = (id) => {
+    $("#error-empty").addClass("tw-hidden");
+    $("#error-fail").addClass("tw-hidden");
+    $("#success").addClass("tw-hidden");
+
+    const provinsi = $("#provinsi-inp").val();
+    const motor = $("#motor-inp").val();
+    const mobil = $("#mobil-inp").val();
+
+    if(!provinsi || !motor || !mobil){
+      $("#error-empty").removeClass("tw-hidden");
+      return;
+    }
+
+    $.post(`/tarif/update/post/${id}/`, {
+      provinsi,
+      motor,
+      mobil,
+      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+    },
+    () => {
+      $("#success").removeClass("tw-hidden");
+      window.location.href = "/tarif/";
+    }).fail(() => {
+      $("#error-fail").removeClass("tw-hidden");
+    });
+  }
+</script>
+{% endblock meta %}
+
+{% block content %}
+  {% include 'navbar-admin.html' %}
+  <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-p-20">
+    <div class="tw-font-bold tw-text-2xl tw-pb-4">Form Update Tarif Pengiriman per KM</div>
+
+    <!-- FORM -->
+    <div class="tw-flex tw-flex-col tw-gap-4">
+      <div class="tw-flex tw-flex-col tw-p-12 tw-rounded-lg tw-drop-shadow-xl tw-bg-white tw-gap-4">
+        {% csrf_token %}
+        <div class="tw-flex tw-flex-col tw-gap-2">
+          <p class="tw-font-semibold">Provinsi</p>
+          <input id="provinsi-inp" type="text" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Provinsi" value="{{ provinsi }}" disabled/>
+        </div>
+        <div class="tw-flex tw-flex-col tw-gap-2">
+          <p class="tw-font-semibold">Tarif Motor</p>
+          <input id="motor-inp" type="number" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Tarif Motor" value="{{ motor }}" />
+        </div> 
+        <div class="tw-flex tw-flex-col tw-gap-2">
+          <p class="tw-font-semibold">Tarif Mobil</p>
+          <input id="mobil-inp" type="number" class="tw-border tw-border-black tw-rounded-lg tw-px-1 tw-py-2" placeholder="Tarif Mobil" value="{{ mobil }}" />
+        </div>
+        <button class="tw-rounded-lg tw-px-4 tw-py-2 tw-bg-blue-400" onClick="updateTarif('{{ id }}');">Simpan</button>
+      </div>
+
+      <div id="error-empty" class="tw-bg-red-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-red-700 tw-hidden">
+        <p>Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.</p>
+      </div>
+      <div id="error-fail" class="tw-bg-red-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-red-700 tw-hidden">
+        <p>Gagal mengubah. Pastikan tarif yang dimasukkan benar.</p>
+      </div>
+      <div id="success" class="tw-bg-green-300 tw-p-4 tw-rounded-lg tw-border-2 tw-border-green-700 tw-hidden">
+        <p>Berhasil mengubah tarif.</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
