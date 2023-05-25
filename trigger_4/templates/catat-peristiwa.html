@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Hello, world!</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar-panitia.html' %}
+  <div class="container">
+
+    <a class="btn btn-dark" href="/mulai/{{id_pertandingan}}" role="button" style="margin-top: 48px;">
+      kembali
+    </a>
+
+    <h2 style="text-align: center;">Pilih Peristiwa Tim {{tim}}</h2>
+
+    <form method="POST" action="/tambah/{{id_pertandingan}}/{{tim}}">
+      {% csrf_token %}
+
+      <div class="container table-container col-10">
+        <table class="table table-light" style="text-align: center;">
+          <thead class="thead-light">
+            <th scope="col">Nama Pemain</th>
+            <th scope="col">Peristiwa</th>
+            <th scope="col">Waktu</th>
+          </thead>
+
+          <tbody>
+            {% for data in peristiwa %}
+              <tr>
+                <td>{{data.nama_pemain}}</td>
+                <td>{{data.jenis}}</td>
+                <td>{{data.waktu}} &nbsp;
+                  <a href ="/delete/{{id_pertandingan}}/{{tim}}/{{data.waktu}}" type="button" class="badge btn btn-sm btn-danger">X</a>
+                </td>
+              </tr>
+            {% endfor %}
+
+            <tr>
+              <td>
+                <div class="form-group">
+                  <select name="nama-pemain" class="form-control">
+                    {% for pemain in data_pemain %}
+                    <option value="{{pemain.id_pemain}}">{{pemain.nama_pemain}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </td>
+        
+              <td>
+                <div class="form-group">
+                  <select name="peristiwa" class="form-control">
+                    <option value="none">None</option>
+                    <option value="kartu kuning">Kartu Kuning</option>
+                    <option value="kartu merah">Kartu Merah</option>
+                    <option value="assist">Assist</option>
+                    <option value="gol">Gol</option>
+                  </select>
+                </div>
+              </td>
+
+              <td>
+                <div class="form-group">  
+                  <input type="datetime-local" name="waktu" class="form-control">
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <button class="btn btn-block btn-primary"> 
+            Simpan 
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock content %}
