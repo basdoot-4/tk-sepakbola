@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar-penonton.html' %}
+<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">Pilih Pertandingan</h3>
+
+{% if tima_timb %}
+  <table class="table table-bordered" style="width: 350px;margin-right:auto;margin-left:auto;text-align:center">
+    <tr style="background-color:lightgrey">
+      <th style="width: 40%">Tim 1</th>
+      <th style="width: 40%">Tim 2</th>
+      <th></th>
+    </tr>
+    {% for i in tima_timb %}
+    <tr>
+      <td>{{ i.tim_a }}</td>
+      <td>{{ i.tim_b }} </td>
+      <td><a role="button" class="btn btn-outline-info btn-sm" href="{% url 'trigger_5:show_beli_tiket' id=i.id_pertandingan %}">Pilih</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p class="text-center mt-3" style="margin-top: 10px;">Tidak ada pertandingan</p>
+{% endif %}
+
+{% endblock content %}

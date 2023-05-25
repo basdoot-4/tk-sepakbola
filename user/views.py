@@ -148,8 +148,61 @@ def dashboard(request):
         return render(request, 'dashboard-manajer.html', context=context)
     
     elif role == "panitia":
+        username = request.session["username"]
+        #Informasi User
+        query = f"""
+        SELECT concat(nama_depan, ' ', nama_belakang) AS nama_lengkap, nomor_hp, email, alamat, jabatan, status
+        FROM NON_PEMAIN NP, PANITIA, status_non_pemain
+        WHERE id_panitia = id and id_non_pemain = id AND id='{id_user}'
+        """
+        result = execute_query(query)
+        print(result)
+
+        context = {
+            "user":result,
+            "rapat":[],
+        }
+
+        if result:
+            query = f"""
+            SELECT string_agg(nama_tim, ' vs ') AS tim, s.nama AS nama_stadium, start_datetime
+            FROM pertandingan p, tim_pertandingan t, stadium s, rapat r
+            WHERE p.id_pertandingan = t.id_pertandingan AND stadium = id_stadium AND p.id_pertandingan = r.id_pertandingan AND perwakilan_panitia = '{id_user}'
+            GROUP BY s.nama, start_datetime, end_datetime
+            ORDER BY start_datetime;
+            """
+            result = execute_query(query)
+            print(result)
+            context["rapat"]+=result
+
         return render(request, 'dashboard-panitia.html')
     else:
+        username = request.session["username"]
+        #Informasi User
+        query = f"""
+        SELECT concat(nama_depan, ' ', nama_belakang) AS nama_lengkap, nomor_hp, email, alamat, status
+        FROM NON_PEMAIN NP, status_non_pemain 
+        WHERE id='{id_user}'
+        """
+        result = execute_query(query)
+        print(result)
+
+        context = {
+            "user":result,
+            "pembelian":[],
+        }
+
+        if result:
+            query = f"""
+            SELECT DISTINCT nomor_receipt, string_agg(nama_tim, ' vs ') AS tim, s.nama AS nama_stadium, start_datetime
+            FROM pertandingan p, tim_pertandingan t, stadium s, pembelian_tiket pt
+            WHERE p.id_pertandingan = t.id_pertandingan AND stadium = id_stadium AND pt.id_pertandingan = p.id_pertandingan AND id_penonton = '{id_user}'
+            GROUP BY nomor_receipt, stadium, start_datetime, end_datetime, s.nama, nomor_receipt
+            ORDER BY start_datetime;
+            """
+            result = execute_query(query)
+            print(result)
+            context["pembelian"]+=result
         return render(request, 'dashboard-penonton.html')
 
 @login_required

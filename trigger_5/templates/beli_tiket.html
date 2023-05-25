@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar-penonton.html' %}
+
+<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">Beli Tiket</h3>
+
+<form style="margin-left:15px" method="POST">
+{% csrf_token %}
+  <div class="form-group" style="margin-bottom:10px">
+    <label class="mr-sm-2" for="inlineFormCustomSelect">Stadium:</label>
+    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="jenis_tiket_dipilih" required>
+      <option value="VIP">VIP</option>
+      <option value="Main East">Main East</option>
+      <option value="Kategori 1">Kategori 1</option>
+      <option value="Kategori 2">Kategori 2</option>
+    </select>
+  </div>
+  <div style="margin-bottom:10px">
+    <label class="mr-sm-2" for="inlineFormCustomSelect">Pembayaran:</label>
+    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="pembayaran_dipilih">
+      <option value="ShopeePay">ShopeePay</option>
+      <option value="GoPay">GoPay</option>
+      <option value="Dana">Dana</option>
+      <option value="Doku Wallet">Doku Wallet</option>
+      <option value="LinkAja">LinkAja</option>
+    </select>
+  </div>
+  <div class="col-md-12 text-center">
+  	<button type="submit" class="btn btn-primary" style="margin:10px">Beli</button>
+  </div>
+</form>
+
+{% if error %}
+  <div class="alert alert-danger" role="alert" style="width:500px;margin-left: auto;margin-right: auto;">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

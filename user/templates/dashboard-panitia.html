@@ -14,53 +14,37 @@
       <div class="profile-pic" style="padding-top: 65px;">
         <img src="{% static 'images/id-card.png' %}" alt="Logo ID Card">
       </div>
-      <h2 class="text-center mt-3">Rosetta Beeho</h2>
+      <h2 class="text-center mt-3">{{ user.0.nama_lengkap }}</h2>
       <p class="text-center bio"></p>
       <ul class="list-unstyled text-center profile">
-        <li><img src="{% static 'images/status_nonpemain.png' %}" alt="Logo Status Non Pemain" style="padding: 10px;">Mahasiswa</li>
-        <li><img src="{% static 'images/role.png' %}" alt="Logo Role" style="padding: 10px;">Ketua Pelaksana</li>
-        <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">08898555183</li>
-        <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">Rosetta.Beeho@gmail.com</li>
-        <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">50962 Commercial Point</li>
+        <li><img src="{% static 'images/status_nonpemain.png' %}" alt="Logo Status Non Pemain" style="padding: 10px;">{{ user.0.status }}</li>
+        <li><img src="{% static 'images/role.png' %}" alt="Logo Role" style="padding: 10px;">{{ user.0.jabatan }}</li>
+        <li><img src="{% static 'images/phone.png' %}" alt="Logo Phone" style="padding: 10px;">{{ user.0.nomor_hp }}</li>
+        <li><img src="{% static 'images/email.png' %}" alt="Logo Email" style="padding: 10px;">{{ user.0.email }}</li>
+        <li><img src="{% static 'images/location.png' %}" alt="Logo Location" style="padding: 10px;">{{ user.0.alamat }}</li>
       </ul>
     </div>
 
     <div class="column right" style="background-color: #f0f0f0; padding-right: 40px;">
       <h1 class="text-center mt-3">Daftar Rapat</h1>
+      {% if rapat %}
       <table>
-          <tr>
-              <th>Tim Bertanding</th>
-              <th>Stadium</th>
-              <th>Tanggan dan Waktu</th>
-          </tr>
-          
-          <tr>
-              <td>Eclipse United vs Phoenix Blaze FC</td>
-              <td>Stadion Utama Riau</td>
-              <td>20 Oktober 2023, 07.00-09.00</td>
-          </tr>
-          
-          <tr>
-              <td>Velocity FC vs Thunderstrike SC</td>
-              <td>Stadion Mandala Krida</td>
-              <td>21 Oktober 2023, 07.00-09.00</td>
-          </tr>
-          <tr>
-              <td>Vanguard United vs Redhawk FC</td>
-              <td>Stadion Jatidiri</td>
-              <td>10 November 2023, 07.00-09.00</td>
-          </tr>
-          <tr>
-              <td>Eclipse City United vs Blackout FC</td>
-              <td>Stadion Lukas Enembe</td>
-              <td>19 November 2023, 13.00-15.00</td>
-          </tr>
-          <tr>
-              <td>Fusion City SC vs Stormfront FC</td>
-              <td>Stadion Gelora Bung Tomo</td>
-              <td>23 Desember 2023, 13.00-15.00</td>
-          </tr>
+        <tr>
+          <th>Tim Bertanding</th>
+          <th>Stadium</th>
+          <th>Tanggal</th>
+        </tr>
+        {% for i in rapat %}
+        <tr>
+          <td>{{ i.tim }}</td>
+          <td>{{ i.nama_stadium }}</td>
+          <td>{{ i.start_datetime }}</td>
+        </tr>
+        {% endfor %}
       </table>
+      {% else %}
+        <p class="text-center mt-3" style="margin-top: 10px;">Belum Ada Rapat</p>
+      {% endif %}
     </div>
   </div>
 {% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar-penonton.html' %}
+<h3 style="text-align: center;margin-top:20px;margin-bottom:15px">Pilih Stadium</h3>
+
+<form style="margin-left:15px" method="POST">
+{% csrf_token %}
+  <div class="form-group" style="margin-bottom:10px">
+    <label class="mr-sm-2" for="inlineFormCustomSelect">Stadium:</label>
+    <select class="costum-select" name="stadium_dipilih" required>
+      {% for i in stadium %}
+      <option value="{{ i.nama }}">{{ i.nama }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div style="margin-bottom:15px">
+    <label for="date">Tanggal:</label>
+    <input type="date" name="date" required>
+  </div>
+  <div class="col-md-12 text-center">
+  	<button type="submit" class="btn btn-primary" style="margin:10px">Next</button>
+  </div>
+</form>
+
+{% endblock content %}
