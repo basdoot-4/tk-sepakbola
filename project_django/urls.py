@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('example/', include('example_app.urls')),
     path('', include('user.urls')),
+    path('', include('trigger2.urls')),
     path('', include('trigger_4.urls')),
     path('',include('trigger_1.urls')),
 ]

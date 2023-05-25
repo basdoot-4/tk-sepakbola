@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user',
     'trigger_4',
     'example_app',
+    'trigger2',
     'trigger_1',
 ]
 
